@@ -37,6 +37,10 @@
 #include "api.h"
 #include "lemlib/api.hpp"
 
+#include "intake.hpp"
+#include "wings.hpp"
+#include "slapper.hpp"
+
 extern lemlib::Chassis chassis;
 /**
  * You should add more #includes here
