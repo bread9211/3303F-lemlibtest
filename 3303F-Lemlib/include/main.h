@@ -35,7 +35,9 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
+#include "lemlib/api.hpp"
 
+extern lemlib::Chassis chassis;
 /**
  * You should add more #includes here
  */

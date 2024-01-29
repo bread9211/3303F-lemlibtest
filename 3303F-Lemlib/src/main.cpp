@@ -1,5 +1,7 @@
 #include "main.h"
-#include "lemlib/api.hpp"
+
+#define f (float)
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -30,6 +32,41 @@ pros::Motor right_top_back_motor(-13);
 pros::Motor right_bottom_front_motor(10);
 pros::Motor right_bottom_back_motor(12);
 
+pros::Motor_Group left_drive({
+	left_top_front_motor, left_top_back_motor, left_bottom_front_motor, left_bottom_back_motor
+});
+
+pros::Motor_Group right_drive({
+	right_top_front_motor, right_top_back_motor, right_bottom_front_motor, right_bottom_back_motor
+});
+
+pros::Imu inertial_sensor(16);
+
+lemlib::Drivetrain drivetrain {
+    &left_drive, // left drivetrain motors
+    &right_drive, // right drivetrain motors
+    13, // track width
+	lemlib::Omniwheel::NEW_325_HALF,
+    3.25, // wheel diameter
+    450 // wheel rpm
+};
+
+// odometry struct
+lemlib::OdomSensors sensors {
+    nullptr, // vertical tracking wheel 1
+    nullptr, // vertical tracking wheel 2
+    nullptr, // horizontal tracking wheel 1
+    nullptr, // we don't have a second tracking wheel, so we set it to nullptr
+    &inertial_sensor // inertial sensor
+};
+
+// kp, ki, kd, windup, smallerror, smallerrortimeout, largeerror, largeerrortimeout, slew
+
+lemlib::ControllerSettings linearController(10, 0, 30, 0, 1, 100, 3, 500, 20);
+
+lemlib::ControllerSettings angularController(2, 0, 10, 0, 1, 100, 3, 500, 20);
+
+lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
