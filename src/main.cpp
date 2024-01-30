@@ -76,6 +76,14 @@ Wings wings = Wings(
 	'A'
 );
 
+Slapper slapper = Slapper(
+	0, 
+	{pros::Motor(0)}, 
+	10, 
+	0, 
+	2
+);
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *

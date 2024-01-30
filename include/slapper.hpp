@@ -5,11 +5,11 @@ class Slapper {
         pros::Rotation rotSensor;
         pros::MotorGroup slapperMotors;
 
+        lemlib::PID pid;
+
         bool activate;
 
-        lemlib::PID* pid;
-
-        Slapper(std::uint8_t rotPort, std::vector<pros::Motor> slapperMotorGroup);
+        Slapper(std::uint8_t rotPort, std::vector<pros::Motor> slapperMotorGroup, float K_p, float K_i, float K_d);
 
         void update();
 
