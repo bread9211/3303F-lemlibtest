@@ -1,33 +1,33 @@
 {
-  "configurations": [
-    {
-      "name": "PROS Project",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "/Users/sunnyfang/Documents/3303F-lemlibtest/include",
-        "/home/pranesh/Documents/3303F-lemlibtest/include"
-      ],
-      "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE"
-      ],
-      "compilerPath": "/home/pranesh/.config/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-linux/bin/arm-none-eabi-g++",
-      "cStandard": "gnu11",
-      "cppStandard": "gnu++20",
-      "intelliSenseMode": "gcc-arm",
-      "compileCommands": "/home/pranesh/Documents/3303F-lemlibtest/compile_commands.json",
-      "macFrameworkPath": [
-        "/System/Library/Frameworks"
-      ],
-      "browse": {
-        "path": [
-          "/home/pranesh/Documents/3303F-lemlibtest"
-        ],
-        "limitSymbolsToIncludedHeaders": true,
-        "databaseFilename": ""
-      }
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "PROS Project",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/sunnyfang/Documents/3303F-lemlibtest/include",
+                "/home/pranesh/Documents/3303F-lemlibtest/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "/Users/sunnyfang/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++20",
+            "intelliSenseMode": "gcc-arm",
+            "compileCommands": "/home/pranesh/Documents/3303F-lemlibtest/compile_commands.json",
+            "macFrameworkPath": [
+                "/System/Library/Frameworks"
+            ],
+            "browse": {
+                "path": [
+                    "/home/pranesh/Documents/3303F-lemlibtest"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
 }

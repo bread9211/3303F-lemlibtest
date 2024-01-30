@@ -1,4 +1,4 @@
-compile_commands
-.d
-.vscode
-.bin
+/compile_commands
+/.d
+/.vscode
+/.bin
