@@ -1,3 +1,5 @@
 #include "main.h"
 
-void far_side() {}
+void pidTest();
+
+void far_side();

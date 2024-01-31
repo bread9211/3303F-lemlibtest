@@ -5,6 +5,15 @@ ASSET(Far_2_txt);
 ASSET(Far_3_txt);
 ASSET(Far_4_txt);
 
+void pidTest() {
+    chassis.setPose(0, 0, 0);
+    chassis.moveToPoint(0, 10, 1000, true, 127, false);
+    pros::delay(1000);
+    chassis.turnTo(10, 10, 1000, true, 127, false);
+    pros::delay(1000);
+    chassis.moveToPose(0, 0, 0, 10000);
+}
+
 void far_side() {
     chassis.setPose(35, -60, 93.548);
     intake.intake();
