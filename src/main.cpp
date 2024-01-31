@@ -68,8 +68,12 @@ lemlib::ControllerSettings angularController(2, 0, 10, 0, 1, 100, 3, 500, 20);
 
 lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
+/**
+ * TODO: set intake ports
+ * INTAKE: uses motors
+*/
 Intake intake = Intake( 
-	'B', 'C'
+	0, pros::E_MOTOR_BRAKE_COAST
 );
 
 Wings wings = Wings(
@@ -149,4 +153,27 @@ void autonomous() {
  */
 void opcontrol() {
 	chassis.tank(127, 127, 0.5);
+
+	/**
+	 * using motors:
+	*/
+	bool R1_pressed = controller.get_digital(DIGITAL_R1);
+	bool R2_pressed = controller.get_digital(DIGITAL_R2);
+
+	/**
+	 * INTAKE: using motors
+	*/
+	// if the intake and outtake buttons are either BOTH pressed or BOTH depressed...
+	if (R1_pressed == R2_pressed) {
+		// don't do anything!
+		intake.break_the_award();
+	}
+	// intake
+	else if (R1_pressed) {
+		intake.intake_the_award();
+	}
+	// outtake (ALSO RUNS THE FLYWHEEL!!!)
+	else if (R2_pressed) {
+		intake.outtake_the_award();
+	}
 }
