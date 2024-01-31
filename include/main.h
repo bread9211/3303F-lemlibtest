@@ -42,6 +42,8 @@
 #include "slapper.hpp"
 
 extern lemlib::Chassis chassis;
+extern Intake intake;
+extern Wings wings;
 /**
  * You should add more #includes here
  */

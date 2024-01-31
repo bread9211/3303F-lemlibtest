@@ -32,9 +32,9 @@ class Intake {
 
         Intake(std::int8_t intake_motor_port, pros::motor_brake_mode_e brake_mode);
 
-        void intake_the_award();
+        void intake();
 
-        void outtake_the_award();
+        void outake();
 
-        void break_the_award();
+        void brake();
 };

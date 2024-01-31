@@ -166,14 +166,14 @@ void opcontrol() {
 	// if the intake and outtake buttons are either BOTH pressed or BOTH depressed...
 	if (R1_pressed == R2_pressed) {
 		// don't do anything!
-		intake.break_the_award();
+		intake.brake();
 	}
 	// intake
 	else if (R1_pressed) {
-		intake.intake_the_award();
+		intake.intake();
 	}
-	// outtake (ALSO RUNS THE FLYWHEEL!!!)
+	// outtake 
 	else if (R2_pressed) {
-		intake.outtake_the_award();
+		intake.outake();
 	}
 }
