@@ -88,6 +88,27 @@ Slapper slapper = Slapper(
 	2
 );
 
+AutonSelector as = AutonSelector(360, 
+	// far autons
+	{
+		Auton("far 1", []() { printf("far 1"); }),
+		Auton("far 2", []() { printf("far 2"); }),
+		Auton("far 3", []() { printf("far 3"); })
+	},
+	// near autons
+	{
+		Auton("near 1", []() { printf("near 1"); }),
+		Auton("near 2", []() { printf("near 2"); }),
+		Auton("near 3", []() { printf("near 3"); })
+	},
+	// skills autons
+	{
+		Auton("skills 1", []() { printf("skills 1"); }),
+		Auton("skills 2", []() { printf("skills 2"); }),
+		Auton("skills 3", []() { printf("skills 3"); })
+	}
+);
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
