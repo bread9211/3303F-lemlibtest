@@ -22,16 +22,21 @@ void on_center_button() {
 
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-pros::Motor left_top_front_motor(18);
-pros::Motor left_top_back_motor(20);
-pros::Motor left_bottom_front_motor(-19);
-pros::Motor left_bottom_back_motor(-17);
 
-pros::Motor right_top_front_motor(-11);
-pros::Motor right_top_back_motor(-13);
-pros::Motor right_bottom_front_motor(10);
-pros::Motor right_bottom_back_motor(12);
 
+/**
+ * TODO: find which motor ports are reversed!
+*/
+pros::Motor left_top_front_motor(-18);
+pros::Motor left_top_back_motor(10);
+pros::Motor left_bottom_front_motor(-9);
+pros::Motor left_bottom_back_motor(-19);
+
+pros::Motor right_top_front_motor(14);
+pros::Motor right_top_back_motor(-12);
+pros::Motor right_bottom_front_motor(13);
+pros::Motor right_bottom_back_motor(11);
+ 
 pros::Motor_Group left_drive({
 	left_top_front_motor, left_top_back_motor, left_bottom_front_motor, left_bottom_back_motor
 });
@@ -72,42 +77,42 @@ lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors
  * TODO: set intake ports
  * INTAKE: uses motors
 */
-Intake intake = Intake( 
-	0, pros::E_MOTOR_BRAKE_COAST
+Intake intake = Intake(
+	5, pros::E_MOTOR_BRAKE_COAST
 );
 
-Wings wings = Wings(
-	'A'
-);
+// Wings wings = Wings(
+// 	'A'
+// );
 
-Slapper slapper = Slapper(
-	0, 
-	{pros::Motor(0)}, 
-	10, 
-	0, 
-	2
-);
+// Slapper slapper = Slapper(
+// 	0, 
+// 	{pros::Motor(0)}, 
+// 	10, 
+// 	0, 
+// 	2
+// );
 
-AutonSelector as = AutonSelector(360, 
-	// far autons
-	{
-		Auton("far 1", []() { printf("far 1"); }),
-		Auton("far 2", []() { printf("far 2"); }),
-		Auton("far 3", []() { printf("far 3"); })
-	},
-	// near autons
-	{
-		Auton("near 1", []() { printf("near 1"); }),
-		Auton("near 2", []() { printf("near 2"); }),
-		Auton("near 3", []() { printf("near 3"); })
-	},
-	// skills autons
-	{
-		Auton("skills 1", []() { printf("skills 1"); }),
-		Auton("skills 2", []() { printf("skills 2"); }),
-		Auton("skills 3", []() { printf("skills 3"); })
-	}
-);
+// AutonSelector as = AutonSelector(360, 
+// 	// far autons
+// 	{
+// 		Auton("far 1", []() { printf("far 1"); }),
+// 		Auton("far 2", []() { printf("far 2"); }),
+// 		Auton("far 3", []() { printf("far 3"); })
+// 	},
+// 	// near autons
+// 	{
+// 		Auton("near 1", []() { printf("near 1"); }),
+// 		Auton("near 2", []() { printf("near 2"); }),
+// 		Auton("near 3", []() { printf("near 3"); })
+// 	},
+// 	// skills autons
+// 	{
+// 		Auton("skills 1", []() { printf("skills 1"); }),
+// 		Auton("skills 2", []() { printf("skills 2"); }),
+// 		Auton("skills 3", []() { printf("skills 3"); })
+// 	}
+// );
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -116,12 +121,50 @@ AutonSelector as = AutonSelector(360,
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "hi bozo!");
-
-	pros::lcd::register_btn1_cb(on_center_button);
+	printf("[main.py] initialize(): initializing robot...\n");
+	// controller.set_text(0, 0, "HELP");
 
 	chassis.calibrate();
+
+	// Auton far_auton_1("far 1", []() { printf("far 1"); });
+	// Auton far_auton_2("far 1", []() { printf("far 2"); });
+	// Auton far_auton_3("far 1", []() { printf("far 3"); });
+
+	// Auton near_auton_1("far 1", []() { printf("near 1"); });
+	// Auton near_auton_2("far 1", []() { printf("near 2"); });
+	// Auton near_auton_3("far 1", []() { printf("near 3"); });
+
+	// Auton skills_auton_1("far 1", []() { printf("skills 1"); });
+	// Auton skills_auton_2("far 1", []() { printf("skills 2"); });
+	// Auton skills_auton_3("far 1", []() { printf("skills 3"); });
+
+	// printf("[main.py] initialize(): calling as::init()\n\n");
+	// // initializes auton selector
+	// as::init(
+	// 	// far autons
+	// 	{
+	// 		far_auton_1,
+	// 		far_auton_2,
+	// 		far_auton_3
+	// 	},
+	// 	// near autons
+	// 	{
+	// 		near_auton_1,
+	// 		near_auton_2,
+	// 		near_auton_3
+	// 	},
+	// 	// skills autons
+	// 	{
+	// 		skills_auton_1,
+	// 		skills_auton_2,
+	// 		skills_auton_3
+	// 	},
+	// 	360,
+	// 	0,
+	// 	0
+	// );
+
+	// printf("[main.py] initialize(): finished initializing!\n\n");
 }
 
 /**
@@ -156,7 +199,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-
+	// as::call_selected_auton();
 }
 
 /**
