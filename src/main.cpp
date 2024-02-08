@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define f (float)
+const int DRIVE_SPEED = 127;
 
 /**
  * A callback function for LLEMU's center button.
@@ -81,9 +81,9 @@ Intake intake = Intake(
 	5, pros::E_MOTOR_BRAKE_COAST
 );
 
-// Wings wings = Wings(
-// 	'A'
-// );
+Wings wings = Wings(
+	'A', 'B'
+);
 
 // Slapper slapper = Slapper(
 // 	0, 
@@ -216,28 +216,32 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	chassis.tank(127, 127, 0.5);
+	while (true) {
+		chassis.tank((controller.get_analog(ANALOG_LEFT_Y)/127)*DRIVE_SPEED, (controller.get_analog(ANALOG_RIGHT_Y)/127)*DRIVE_SPEED, 0.5);
 
-	/**
-	 * using motors:
-	*/
-	bool R1_pressed = controller.get_digital(DIGITAL_R1);
-	bool R2_pressed = controller.get_digital(DIGITAL_R2);
+		/**
+		 * using motors:
+		*/
+		bool R1_pressed = controller.get_digital(DIGITAL_R1);
+		bool R2_pressed = controller.get_digital(DIGITAL_R2);
 
-	/**
-	 * INTAKE: using motors
-	*/
-	// if the intake and outtake buttons are either BOTH pressed or BOTH depressed...
-	if (R1_pressed == R2_pressed) {
-		// don't do anything!
-		intake.brake();
-	}
-	// intake
-	else if (R1_pressed) {
-		intake.intake();
-	}
-	// outtake 
-	else if (R2_pressed) {
-		intake.outake();
+		/**
+		 * INTAKE: using motors
+		*/
+		// if the intake and outtake buttons are either BOTH pressed or BOTH depressed...
+		if (R1_pressed == R2_pressed) {
+			// don't do anything!
+			intake.brake();
+		}
+		// intake
+		else if (R1_pressed) {
+			intake.intake();
+		}
+		// outtake 
+		else if (R2_pressed) {
+			intake.outake();
+		}
+
+		pros::delay(5);
 	}
 }
