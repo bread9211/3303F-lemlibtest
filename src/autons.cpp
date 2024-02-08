@@ -7,31 +7,12 @@
  * TODO: make auton selector a separate file
 */
 
-/**
- * 0x383e4d4
-        0x383e4c4
-        0x78003c0
-        0x7800b64
-        0x7801468
-        0x385fff8
-        0x385e4e4
-        0x3858974
-*/
-
 #include "main.h"
 
 ASSET(Far_1_txt);
 ASSET(Far_2_txt);
 ASSET(Far_3_txt);
 ASSET(Far_4_txt);
-
-/**
- * define Auton
-*/
-Auton::Auton(std::string name, std::function<void()> callback) {
-    // name = name;
-    func = callback;
-}
 
 // ...
 ASSET(Near_1_txt);

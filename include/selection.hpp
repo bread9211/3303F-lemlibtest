@@ -1,5 +1,7 @@
 #pragma once
 
+#include "selection.hpp"
+
 #include <string>
 
 //selector configuration

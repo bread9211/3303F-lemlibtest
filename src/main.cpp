@@ -1,22 +1,8 @@
 #include "main.h"
 
-const int DRIVE_SPEED = 127;
+#include "selection.hpp"
 
-/**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
+const int DRIVE_SPEED = 127;
 
 // port definitions
 
@@ -126,6 +112,8 @@ void initialize() {
 
 	chassis.calibrate();
 
+	selector::init();
+
 	// Auton far_auton_1("far 1", []() { printf("far 1"); });
 	// Auton far_auton_2("far 1", []() { printf("far 2"); });
 	// Auton far_auton_3("far 1", []() { printf("far 3"); });
@@ -199,7 +187,37 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	// as::call_selected_auton();
+	switch (selector::auton) {
+		case 1:
+			printf("red front");
+			break;
+		case 2:
+			printf("red back");
+			break;
+		case 3:
+			printf("red nothing");
+			break;
+		case -1:
+			printf("blue front");
+			break;
+		case -2:
+			printf("blue back");
+			break;
+		case -3:
+			printf("blue nothing");
+			break;
+		case 0:
+			printf("skills");
+			break;
+	}
+	
+	if (selector::auton == 1) {
+		printf("red front");
+	} else if (selector::auton == 2) {
+		printf("red back");
+	} else if (selector::auton == 2) {
+		printf("red nothing");
+	}
 }
 
 /**
@@ -217,7 +235,9 @@ void autonomous() {
  */
 void opcontrol() {
 	while (true) {
-		chassis.tank((controller.get_analog(ANALOG_LEFT_Y)/127)*DRIVE_SPEED, (controller.get_analog(ANALOG_RIGHT_Y)/127)*DRIVE_SPEED, 0.5);
+		left_drive.move((controller.get_analog(ANALOG_LEFT_Y) / 127.0) * DRIVE_SPEED);
+		right_drive.move((controller.get_analog(ANALOG_RIGHT_Y) / 127.0) * DRIVE_SPEED);
+		// chassis.tank((controller.get_analog(ANALOG_LEFT_Y)/127)*DRIVE_SPEED, (controller.get_analog(ANALOG_RIGHT_Y)/127)*DRIVE_SPEED, 1);
 
 		/**
 		 * using motors:
@@ -242,6 +262,6 @@ void opcontrol() {
 			intake.outake();
 		}
 
-		pros::delay(5);
+		pros::delay(10);
 	}
 }
