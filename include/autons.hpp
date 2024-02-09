@@ -20,19 +20,19 @@
 //   - https://github.com/EZ-Robotics/EZ-Template/blob/v2.2.0/src/EZ-Template/auton.cpp
 //   - https://github.com/EZ-Robotics/EZ-Template/blob/v2.2.0/src/EZ-Template/auton_selector.cpp
 
-class Auton {
-    public:
-        Auton(std::string name, std::function<void()> callback);
+// class Auton {
+//     public:
+//         Auton(std::string name, std::function<void()> callback);
 
-        std::string Name = "";
-        std::function<void()> func = nullptr;
-};
+//         std::string Name = "";
+//         std::function<void()> func = nullptr;
+// };
 
-namespace as {
-    void init(std::vector<Auton> farAutons, std::vector<Auton> nearAutons, std::vector<Auton> skillsAutons, int hue, int default_page, int default_auton);
+// namespace as {
+//     void init(std::vector<Auton> farAutons, std::vector<Auton> nearAutons, std::vector<Auton> skillsAutons, int hue, int default_page, int default_auton);
 
-    void call_selected_auton();
-}
+//     void call_selected_auton();
+// }
 
 // class AutonSelector {
     

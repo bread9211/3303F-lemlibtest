@@ -31,15 +31,15 @@ pros::Motor_Group right_drive({
 	right_top_front_motor, right_top_back_motor, right_bottom_front_motor, right_bottom_back_motor
 });
 
-pros::Imu inertial_sensor(16);
+pros::Imu inertial_sensor(20);
 
 lemlib::Drivetrain drivetrain {
     &left_drive, // left drivetrain motors
     &right_drive, // right drivetrain motors
     13.5, // track width
-	lemlib::Omniwheel::NEW_325_HALF,
     3.25, // wheel diameter
-    450 // wheel rpm
+    450, // wheel rpm
+	lemlib::Omniwheel::NEW_325_HALF // chase power
 };
 
 // odometry struct
@@ -53,9 +53,32 @@ lemlib::OdomSensors sensors {
 
 // kp, ki, kd, windup, smallerror, smallerrortimeout, largeerror, largeerrortimeout, slew
 
-lemlib::ControllerSettings linearController(10, 0, 30, 0, 1, 100, 3, 500, 20);
+// 20 kP, 5 kD
+// 
 
-lemlib::ControllerSettings angularController(2, 0, 10, 0, 1, 100, 3, 500, 20);
+lemlib::ControllerSettings linearController(
+	21 // kP
+	, 0 // kI
+	, 15 // kD
+	, 0 // antiWindup
+	, 1
+	, 100
+	, 3
+	, 500
+	, 0
+);
+
+lemlib::ControllerSettings angularController(
+	2 // kP
+	, 0 // kI
+	, 9 // kD
+	, 0 // antiWindup
+	, 1
+	, 100
+	, 3
+	, 500
+	, 0
+);
 
 lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
@@ -107,12 +130,28 @@ Wings wings = Wings(
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::lcd::initialize();
+
 	printf("[main.py] initialize(): initializing robot...\n");
 	// controller.set_text(0, 0, "HELP");
 
 	chassis.calibrate();
+	chassis.setPose(0, 0, 0);
+	
+	pros::Task screenTask([&]() {
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+            // log position telemetry
+            lemlib::telemetrySink()->info("Chassis pose: {}", chassis.getPose());
+            // delay to save resources
+            pros::delay(50);
+        }
+    });
 
-	selector::init();
+	// selector::init();
 
 	// Auton far_auton_1("far 1", []() { printf("far 1"); });
 	// Auton far_auton_2("far 1", []() { printf("far 2"); });
@@ -187,37 +226,37 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	switch (selector::auton) {
-		case 1:
-			printf("red front");
-			break;
-		case 2:
-			printf("red back");
-			break;
-		case 3:
-			printf("red nothing");
-			break;
-		case -1:
-			printf("blue front");
-			break;
-		case -2:
-			printf("blue back");
-			break;
-		case -3:
-			printf("blue nothing");
-			break;
-		case 0:
-			printf("skills");
-			break;
-	}
+	// switch (selector::auton) {
+	// 	case 1:
+	// 		printf("red front");
+	// 		break;
+	// 	case 2:
+	// 		printf("red back");
+	// 		break;
+	// 	case 3:
+	// 		printf("red nothing");
+	// 		break;
+	// 	case -1:
+	// 		printf("blue front");
+	// 		break;
+	// 	case -2:
+	// 		printf("blue back");
+	// 		break;
+	// 	case -3:
+	// 		printf("blue nothing");
+	// 		break;
+	// 	case 0:
+	// 		printf("skills");
+	// 		break;
+	// }
+
 	
-	if (selector::auton == 1) {
-		printf("red front");
-	} else if (selector::auton == 2) {
-		printf("red back");
-	} else if (selector::auton == 2) {
-		printf("red nothing");
-	}
+
+	// tuning linear (lateral) controller
+	// chassis.moveToPoint(0, 24, 1000);
+
+	// tuning angular controller
+	chassis.turnTo(30, 0, 1000);
 }
 
 /**

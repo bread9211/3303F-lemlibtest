@@ -1,3 +1,7 @@
+/**
+ * TODO: comment code!!!
+*/
+
 #include "main.h"
 // amongus
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -23,10 +27,10 @@
 /**
  * define Auton
 */
-Auton::Auton(std::string name, std::function<void()> callback) {
-    // name = name;
-    func = callback;
-}
+// Auton::Auton(std::string name, std::function<void()> callback) {
+//     // name = name;
+//     func = callback;
+// }
 
 namespace selector{
 
