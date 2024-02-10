@@ -9,6 +9,8 @@
 #define DEFAULT 1
 #define AUTONS "Front", "Back", "Do Nothing"
 
+#define RED_AUTON_FRONT 1
+
 namespace selector{
     extern int auton;
     const char *b[] = {AUTONS, ""};

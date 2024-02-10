@@ -188,7 +188,7 @@ void competition_initialize() {
  */
 void autonomous() {
 	switch (selector::auton) {
-		case 1:
+		case RED_AUTON_FRONT:
 			printf("red front");
 			break;
 		case 2:
