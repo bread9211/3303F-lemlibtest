@@ -85,3 +85,5 @@
 void pidTest();
 
 void far_side();
+
+void near_side();

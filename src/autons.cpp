@@ -67,44 +67,41 @@ void far_side() {
 }
 
 void near_side() {
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPose(0, 0, -45, 1000);
-    chassis.waitUntilDone();
-    intake.outake();
-    pros::delay(50);
-    intake.brake();
-    chassis.moveToPose(0, 0, 0, 1000);
-    chassis.waitUntilDone();
+    // chassis.setPose(0, 0, 0);
+    // chassis.moveToPose(0, 0, -60, 1000);
+    // chassis.waitUntilDone();
+    // intake.outake();
+    // pros::delay(1000);
+    // intake.brake();
+    // chassis.moveToPose(0, 0, 0, 1000);
+    // chassis.waitUntilDone();
 
-    chassis.setPose(-35, -58.75, 99.305);
-    chassis.follow(Near_1_txt, 15, 5000);
-    pros::delay(50);
+    chassis.setPose(-35, -60, 0);
+
+    wings.open();
+    pros::delay(750);
+    wings.close();
+
+    chassis.moveToPoint(-35, -43, 1000);
+    pros::delay(100);
     intake.intake();
+    chassis.moveToPoint(-27, -15, 1000);
     chassis.waitUntilDone();
-    pros::delay(50);
+    pros::delay(500);
     intake.brake();
-    chassis.follow(Near_1_txt, 15, 5000, false);
-    chassis.waitUntilDone();
-    chassis.setPose(0, 0, 0);
-    chassis.turnTo(0, -58, 1000);
-    chassis.waitUntilDone();
-    intake.outake();
-    pros::delay(50);
-    intake.brake();
-    chassis.moveToPose(0, 0, 0, 1000);
-    chassis.waitUntilDone();
-    chassis.setPose(-35, -58.75, 99.286);
-    chassis.follow(Near_2_txt, 15, 5000, false);
-    chassis.waitUntilDone();
-    chassis.follow(Near_3_txt, 15, 1500);
-    pros::delay(150);
+    chassis.moveToPoint(-35, -35, 1000);
+    chassis.moveToPose(-42, -58, 90, 1000);
+    pros::delay(250);
     wings.open();
     chassis.waitUntilDone();
+    
+    intake.outake();
+    pros::delay(750);
+
+    chassis.turnTo(0, -60, 1000);
+    chassis.moveToPoint(-12, -60, 1000);
+    pros::delay(250);
     wings.close();
-    chassis.follow(Near_3_txt, 15, 1500, false);
-    chassis.waitUntilDone();
-    chassis.follow(Near_4_txt, 15, 5000);
-    chassis.waitUntilDone();
 }
 
 // 
