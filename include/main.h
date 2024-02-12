@@ -44,7 +44,10 @@
 
 extern lemlib::Chassis chassis;
 extern Intake intake;
-extern Wings wings;
+// vertical wings... (for autons)
+extern Wings vert_wings;
+// horizontal wings... (for autons)
+extern Wings horiz_wings;
 /**
  * You should add more #includes here
  */

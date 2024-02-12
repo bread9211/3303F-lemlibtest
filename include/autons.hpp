@@ -84,6 +84,14 @@
 
 void pidTest();
 
+void autonTest();
+
 void far_side();
 
+void near_side_full();
+
+/**
+ * AIM:
+ * - open wings to 
+*/
 void near_side();

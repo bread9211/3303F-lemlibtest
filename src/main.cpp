@@ -22,7 +22,7 @@ pros::Motor right_top_front_motor(14);
 pros::Motor right_top_back_motor(-12);
 pros::Motor right_bottom_front_motor(13);
 pros::Motor right_bottom_back_motor(11);
- 
+
 pros::Motor_Group left_drive({
 	left_top_front_motor, left_top_back_motor, left_bottom_front_motor, left_bottom_back_motor
 });
@@ -87,11 +87,18 @@ lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors
  * INTAKE: uses motors
 */
 Intake intake = Intake(
-	5, pros::E_MOTOR_BRAKE_COAST
+	5, pros::E_MOTOR_BRAKE_HOLD
 );
 
-Wings wings = Wings(
+Wings vert_wings = Wings(
 	'A', 'B'
+);
+
+/**
+ * TODO: set ports!
+*/
+Wings horiz_wings = Wings(
+	'C', 'D'
 );
 
 // Slapper slapper = Slapper(
@@ -130,9 +137,10 @@ Wings wings = Wings(
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	printf("[main.py] initialize(): initializing robot...\n");
+
 	pros::lcd::initialize();
 
-	printf("[main.py] initialize(): initializing robot...\n");
 	// controller.set_text(0, 0, "HELP");
 
 	chassis.calibrate();
@@ -192,7 +200,7 @@ void initialize() {
 	// 	0
 	// );
 
-	// printf("[main.py] initialize(): finished initializing!\n\n");
+	printf("[main.py] initialize(): finished initializing!\n\n");
 }
 
 /**
@@ -212,7 +220,8 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	
+	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 }
 
 /**
@@ -228,38 +237,30 @@ void competition_initialize() {
  */
 void autonomous() {
 	switch (selector::auton) {
-		case RED_AUTON_FRONT:
-			printf("red front");
-			break;
-		case 2:
-			printf("red back");
-			break;
-		case 3:
-			printf("red nothing");
-			break;
-		case -1:
-			printf("blue front");
-			break;
-		case -2:
-			printf("blue back");
-			break;
-		case -3:
-			printf("blue nothing");
-			break;
-		case 0:
-			printf("skills");
-			break;
+		// case RED_AUTON_FRONT:
+		// 	printf("red front");
+		// 	break;
+		// case 2:
+		// 	printf("red back");
+		// 	break;
+		// case 3:
+		// 	printf("red nothing");
+		// 	break;
+		// case -1:
+		// 	printf("blue front");
+		// 	break;
+		// case -2:
+		// 	printf("blue back");
+		// 	break;
+		// case -3:
+		// 	printf("blue nothing");
+		// 	break;
+		// case 0:
+		// 	printf("skills");
+		// 	break;
 	}
 	
-	if (selector::auton == 1) {
-		printf("red front");
-	} else if (selector::auton == 2) {
-		printf("red back");
-	} else if (selector::auton == 2) {
-		printf("red nothing");
-	}
-
-	near_side();
+	near_side_full();
 }
 
 /**
@@ -276,6 +277,9 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
+	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
+
 	while (true) {
 		left_drive.move((controller.get_analog(ANALOG_LEFT_Y) / 127.0) * DRIVE_SPEED);
 		right_drive.move((controller.get_analog(ANALOG_RIGHT_Y) / 127.0) * DRIVE_SPEED);
