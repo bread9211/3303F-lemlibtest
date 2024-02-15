@@ -1,3 +1,23 @@
+// "actual" width: 14 and a quarter inches / 14.25 inches
+// "actual" height ~ 21 in
+
+/**
+ * TODO: will width and height values need to encompass WHOLE BOT? (height value seemingly not including intake a little...)
+ * TODO: implement autons for both far side and near side!
+ * TODO: implement separate autons for far and near side depending on whether you're red or blue team (does this really matter? probs not...)
+ * TODO: rewrite auton selector!
+ * TODO: condense three init funcs into one bc same templating
+ * TODO: colorized terminal output! (see if vex brain's terminal supports it)
+ * TODO: partially opening / closing wings might be troublesome; if it's just for autons then it SHOULD be fine bc we close anyways
+*/
+
+/**
+ * path generator: https://path.jerryio.com/
+ * 
+ * WIDTH: 14
+ * HEIGHT: 17.5
+*/
+
 #pragma once
 
 #include "main.h"
@@ -89,6 +109,8 @@ void autonTest();
 void far_side();
 
 void near_side_full();
+
+void far_side_full();
 
 /**
  * AIM:

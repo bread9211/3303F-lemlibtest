@@ -1,0 +1,32 @@
+-40, -55, 127
+-40.007, -53, 127
+-39.957, -51.001, 127
+-39.837, -49.005, 127
+-39.656, -47.013, 127
+-39.407, -45.029, 127
+-39.094, -43.053, 127
+-38.721, -41.089, 127
+-38.283, -39.137, 123.991
+-37.789, -37.199, 119.807
+-37.243, -35.275, 115.472
+-36.646, -33.366, 110.968
+-36.005, -31.472, 106.273
+-35.327, -29.591, 101.36
+-34.617, -27.721, 96.197
+-33.881, -25.861, 90.741
+-33.125, -24.01, 84.935
+-32.357, -22.163, 78.701
+-31.582, -20.319, 71.93
+-30.807, -18.475, 64.451
+-30.04, -16.629, 55.981
+-29.285, -14.776, 45.977
+-28.55, -12.916, 33.075
+-27.789, -10.911, 0
+-27.789, -10.911, 0
+-20.688, 7.786, 0
+endData
+255
+127
+200
+-40, -55, -40.375, -36.81, -32.994, -24.994, -27.789, -10.911
+#PATH.JERRYIO-DATA {"appVersion":"0.5.1","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":14,"robotHeight":17.5,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":0.7750015500031,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"jfHR7PiGV4","x":-40,"y":-55,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"6n90A6BWMu","x":-40.375466417910445,"y":-36.8102715588723,"lock":false,"visible":true,"__type":"control"},{"uid":"RVOw9DUC6t","x":-32.994195688225545,"y":-24.994195688225545,"lock":false,"visible":true,"__type":"control"},{"uid":"12k5uwDRx7","x":-27.788660862354895,"y":-10.91106965174129,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[{"uid":"nCS1C0hekJ","xPos":0.9777777777777777,"yPos":1,"followBentRate":true}],"lookaheadKeyframes":[],"uid":"6ZVaM14JbZ"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":0,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":4,"label":"4"},"step":0.01,"from":1.19,"to":1.66},"maxDecelerationRate":255},"name":"Path","uid":"pALn86o9yx","lock":false,"visible":true}]}
