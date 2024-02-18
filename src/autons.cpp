@@ -88,6 +88,9 @@ void far_side() {
  * 
  * START: facing front, middle "legal" tile, (-35, 55)
  * 
+ * ISSUES:
+ * - probably needs to be more right
+ * 
  * TIME: "about" 14.2 seconds
 */
 void near_side_full() {
@@ -302,17 +305,17 @@ void near_side_full() {
 /**
  * START: "same" setup as with near-side autons, except mirrored so triball is on right side of robor, w/ horizontal wings
 */
-void far_side_full() {
-    // opens wings
-    horiz_wings.right_wing_piston.set_value(1);
-    pros::delay(50);
+// void far_side_full() {
+//     // opens wings
+//     // horiz_wings.right_wing_piston.set_value(1);
+//     pros::delay(50);
 
-    // closes wings WHILE moving forward
+//     // closes wings WHILE moving forward
 
 
-    horiz_wings.close();
-    pros::delay(50);
-}
+//     horiz_wings.close();
+//     pros::delay(50);
+// }
 
 // void near_side() {
 //     // chassis.setPose(0, 0, 0);

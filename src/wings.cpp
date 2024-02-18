@@ -1,16 +1,33 @@
 #include "main.h"
+#include <vector>
 
-// constructor
-Wings::Wings(
-    std::uint8_t left_wing_piston_port,
-    std::uint8_t right_wing_piston_port
-) : left_wing_piston(left_wing_piston_port), right_wing_piston(right_wing_piston_port) {
-    this->close();
+// Wings::Wings(
+//     std::uint8_t left_wing_piston_port,
+//     std::uint8_t right_wing_piston_port
+// ) : left_wing_piston(left_wing_piston_port), right_wing_piston(right_wing_piston_port) {
+//     this->close();
+// }
+
+Wings::Wings (
+    std::vector<std::uint8_t> wing_pistons_ports
+) {
+    for (std::uint8_t wing_piston_port : wing_pistons_ports) {
+        // wing_pistons_ports.push_back();
+        pros::ADIDigitalOut temp_piston(wing_piston_port);
+
+        wing_pistons.push_back(temp_piston);
+    }
 }
 
+// void Wings::update() {
+//     left_wing_piston.set_value(wings_enabled);
+//     right_wing_piston.set_value(wings_enabled);
+// }
+
 void Wings::update() {
-    left_wing_piston.set_value(wings_enabled);
-    right_wing_piston.set_value(wings_enabled);
+    for (pros::ADIDigitalOut wing_piston : wing_pistons) {
+        wing_piston.set_value(wings_enabled);
+    }
 }
 
 void Wings::close() {
@@ -26,7 +43,10 @@ void Wings::open() {
 }
 
 void Wings::toggle() {
-    wings_enabled = !wings_enabled;
-
-    this->update();
+    switch (wings_enabled) {
+        case true:
+            this->close();
+        case false:
+            this->open();
+    }
 }

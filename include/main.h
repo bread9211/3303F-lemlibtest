@@ -38,6 +38,7 @@
 #include "lemlib/api.hpp"
 
 #include "autons.hpp"
+#include "hang.hpp"
 #include "intake.hpp"
 #include "wings.hpp"
 #include "slapper.hpp"

@@ -82,6 +82,9 @@ lemlib::ControllerSettings angularController(
 
 lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
+// make hang a TOGGLE!
+Hang hang = Hang('H');
+
 /**
  * TODO: set intake ports
  * INTAKE: uses motors
@@ -90,16 +93,19 @@ Intake intake = Intake(
 	5, pros::E_MOTOR_BRAKE_HOLD
 );
 
-Wings vert_wings = Wings(
-	'A', 'B'
-);
+// Wings vert_wings = Wings(
+// 	'A', 'B'
+// );
+Wings vert_wings = Wings({
+	'A'
+});
 
 /**
  * TODO: set ports!
 */
-Wings horiz_wings = Wings(
-	'C', 'D'
-);
+Wings horiz_wings = Wings({
+	'B'
+});
 
 // Slapper slapper = Slapper(
 // 	0, 
@@ -236,6 +242,10 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+	/**
+	 * TODO: add auton selector functionality here!
+	*/
+
 	switch (selector::auton) {
 		// case RED_AUTON_FRONT:
 		// 	printf("red front");
@@ -288,8 +298,20 @@ void opcontrol() {
 		/**
 		 * using motors:
 		*/
+		bool L1_new_press = controller.get_digital(DIGITAL_L1);
+		bool L2_new_press = controller.get_digital(DIGITAL_L2);
 		bool R1_pressed = controller.get_digital(DIGITAL_R1);
 		bool R2_pressed = controller.get_digital(DIGITAL_R2);
+
+		bool A_new_press = controller.get_digital_new_press(DIGITAL_A);
+
+		/**
+		 * HANG:
+		*/
+		if (A_new_press) {
+			// toggles hang (if hang open, it will close. if hang close, it will open)
+			hang.toggle();
+		}
 
 		/**
 		 * INTAKE: using motors
@@ -306,6 +328,31 @@ void opcontrol() {
 		// outtake 
 		else if (R2_pressed) {
 			intake.outake();
+		}
+
+		/**
+		 * WINGS: VERTICAL
+		*/
+		// if (L1_pressed) {
+		// 	// is it bad to repeatedly .set_value() to 1 with .open() commands like this?
+		// 	vert_wings.open();
+		// } else {
+		// 	vert_wings.close();
+		// }
+		if (L1_new_press) {
+			vert_wings.toggle();
+		}
+
+		/**
+		 * WINGS: HORIZONTAL
+		*/
+		// if (L2_pressed) {
+		// 	horiz_wings.open();
+		// } else {
+		// 	horiz_wings.close();
+		// }
+		if (L2_new_press) {
+			horiz_wings.toggle();
 		}
 
 		pros::delay(10);
