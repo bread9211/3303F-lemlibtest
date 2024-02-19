@@ -1,0 +1,37 @@
+35, -57.5, 127
+35.019, -55.5, 127
+34.955, -53.502, 127
+34.807, -51.507, 127
+34.562, -49.523, 127
+34.229, -47.551, 127
+33.813, -45.595, 127
+33.301, -43.662, 127
+32.715, -41.75, 127
+32.046, -39.865, 127
+31.305, -38.008, 127
+30.495, -36.179, 127
+29.622, -34.38, 124.805
+28.694, -32.609, 120.65
+27.711, -30.867, 116.346
+26.687, -29.149, 111.877
+25.619, -27.458, 107.221
+24.52, -25.787, 102.355
+23.389, -24.137, 97.244
+22.237, -22.503, 91.85
+21.064, -20.883, 86.119
+19.878, -19.272, 79.978
+18.683, -17.669, 73.325
+17.484, -16.068, 66.004
+16.285, -14.467, 57.762
+15.093, -12.861, 48.13
+13.912, -11.247, 36.007
+12.748, -9.621, 16.629
+12.435, -9.178, 0
+12.435, -9.178, 0
+0.925, 7.178, 0
+endData
+255
+127
+200
+35, -57.5, 35.705, -36.636, 22.209, -23.14, 12.435, -9.178
+#PATH.JERRYIO-DATA {"appVersion":"0.5.1","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":13.5,"robotHeight":17,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"ewcSBY78BL","x":35,"y":-57.5,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"RKpqW4bK7F","x":35.7054820901271,"y":-36.636281936063675,"lock":false,"visible":true,"__type":"control"},{"uid":"6X8tIItveg","x":22.208884324046732,"y":-23.13968416998331,"lock":false,"visible":true,"__type":"control"},{"uid":"2aValKgMC9","x":12.43548594171267,"y":-9.17768648093465,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"nIzcowuTds"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":91,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":4,"label":"4"},"step":0.01,"from":0.88,"to":1.35},"maxDecelerationRate":255},"name":"Path","uid":"tSGLDl7xJs","lock":false,"visible":true}]}

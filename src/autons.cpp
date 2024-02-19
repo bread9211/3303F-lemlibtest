@@ -23,6 +23,13 @@ ASSET(Near_Mid_3_Curve_txt);
 // ASSET(Near_Mid_2_Cooking_txt);
 
 // new far autons
+ASSET(Far_Rush_1);
+ASSET(Far_Rush_2);
+ASSET(Far_Rush_3);
+ASSET(Far_Rush_4);
+ASSET(Far_Rush_5);
+ASSET(Far_Rush_6);
+
 
 // ...
 
@@ -46,40 +53,64 @@ void autonTest() {
 }
 
 void far_side() {
-    chassis.setPose(35, -60, 93.548);
+    chassis.setPose(35, -57.5, 0);
     intake.intake();
-    chassis.follow(Far_1_txt, 15, 5000, true, false);
-    chassis.waitUntilDone();
-    pros::delay(50);
-    intake.brake();
-    chassis.moveToPoint(60, 0, 1500);
-    pros::delay(250);
-    intake.outake();
-    chassis.waitUntilDone();
-    intake.intake();
-    chassis.follow(Far_2_txt, 15, 5000);
-    chassis.waitUntilDone();
-    pros::delay(50);
-    intake.brake();
-    chassis.moveToPose(-35, -35, 90, 2500);
-    intake.outake();
+    horiz_wings.open();
+    pros::delay(350);
+    chassis.follow(Far_Rush_1, 25, 5000);
     pros::delay(100);
+    horiz_wings.close();
     chassis.waitUntilDone();
-    chassis.follow(Far_3_txt, 15, 5000);
+
+    pros::delay(350); // checkpoint 1
+
+    chassis.turnTo(65, 65, 1000);
+    chassis.waitUntilDone();
+    horiz_wings.open();
+    chassis.follow(Far_Rush_2, 25, 2000);
+    pros::delay(100);
+    intake.outake();
+    chassis.waitUntilDone();
+
+    pros::delay(10); // checkpoint 2
+
+    intake.brake();
+    chassis.turnTo(0, -65, 500);    
+    chassis.waitUntilDone();
+    chassis.follow(Far_Rush_3, 25, 3500);
+    pros::delay(500);
     intake.intake();
     chassis.waitUntilDone();
-    pros::delay(50);
-    intake.brake();
-    chassis.follow(Far_4_txt, 15, 5000, false, false);
+
+    pros::delay(350); // checkpoint 3
+
+    chassis.follow(Far_Rush_4, 25, 5000, false);
+    chassis.waitUntilDone();
+    intake.outake();
+
+    pros::delay(750); // checkpoint 4
+
+    chassis.turnTo(0, -60, 1200);
+    chassis.waitUntilDone();
+    intake.intake();
+    chassis.moveToPoint(11.505, -58.975, 5000);
+    chassis.waitUntilDone();
+
+    pros::delay(350); // checkpoint 5
+
+    chassis.follow(Far_Rush_5, 30, 5000, false);
+    pros::delay(2000);
     vert_wings.open();
-    pros::delay(50);
-    chassis.turnTo(25, 0, 1000, false, 127, false);
+    pros::delay(750);
     vert_wings.close();
-    pros::delay(50);
-    chassis.turnTo(60, 0, 5000);
     chassis.waitUntilDone();
-    chassis.moveToPoint(60, 0, 5000);
+
+    pros::delay(10); // checkpoint 6
+
+    chassis.follow(Far_Rush_6, 30, 5000);
     chassis.waitUntilDone();
+
+    // checkpoint 7 (final)
 }
 
 /**
