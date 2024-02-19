@@ -14,12 +14,12 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
  * TODO: find which motor ports are reversed!
 */
 pros::Motor left_top_front_motor(-18);
-pros::Motor left_top_back_motor(10);
+pros::Motor left_top_back_motor(-10);
 pros::Motor left_bottom_front_motor(-9);
 pros::Motor left_bottom_back_motor(-19);
 
 pros::Motor right_top_front_motor(14);
-pros::Motor right_top_back_motor(-12);
+pros::Motor right_top_back_motor(12);
 pros::Motor right_bottom_front_motor(13);
 pros::Motor right_bottom_back_motor(11);
 
