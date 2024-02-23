@@ -30,7 +30,10 @@ void Hang::toggle() {
     switch (hang_enabled) {
         case true:
             this->close_hang();
+            break;
+
         case false:
             this->open_hang();
+            break;
     }
 }

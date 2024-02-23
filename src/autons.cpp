@@ -17,7 +17,8 @@ ASSET(Near_Mid_1_Working_txt);
 ASSET(Near_Mid_1_Testing_txt);
 ASSET(Near_Mid_2_Testing_txt);
 
-ASSET(Near_Mid_1_AccelAdjust2_txt);
+// ASSET(Near_Mid_1_AccelAdjust2_txt);
+ASSET(Near_Mid_1_PosAdjust_txt)
 ASSET(Near_Mid_3_Curve_txt);
 // ASSET(Near_Mid_3_Testing_txt);
 // ASSET(Near_Mid_2_Cooking_txt);
@@ -31,8 +32,8 @@ ASSET(Far_Rush_5);
 ASSET(Far_Rush_6);
 
 
-// ...
-
+// programming skills autons
+// ASSET()
 
 // test autons
 ASSET(Test_1_txt);
@@ -52,7 +53,7 @@ void autonTest() {
     chassis.waitUntilDone();
 }
 
-void far_side() {
+void far_side_rush() {
     chassis.setPose(35, -57.5, 0);
     intake.intake();
     horiz_wings.open();
@@ -117,14 +118,14 @@ void far_side() {
  * TODO: verify lookahead distances!
  * TODO: does "heading" parameter matter for end control points?
  * 
- * START: facing front, middle "legal" tile, (-35, 55)
+ * START: facing front, middle "legal" tile, AT THE FRONT OF SAID TILE (aligned with back part of "connectors") (-35, 55)
  * 
  * ISSUES:
  * - probably needs to be more right
  * 
  * TIME: "about" 14.2 seconds
 */
-void near_side_full() {
+void near_side_rush() {
     // initially sets position/heading to that at beginning of file!
     // chassis.setPose(
     //     -36 // x
@@ -144,12 +145,12 @@ void near_side_full() {
     printf("[near_side_full]: opening wings to yeet triballs\n");
     horiz_wings.open();
     // delay for it to like... fully open
-    pros::delay(50);
+    pros::delay(750);
     
     printf("[near_side_full]: close wings cuz otherwise they're gonna get ripped right off\n");
     horiz_wings.close();
     // delay for it to like... fully close
-    pros::delay(50);
+    pros::delay(750);
 
     
     /**
@@ -158,11 +159,13 @@ void near_side_full() {
     // starts intake running
     intake.intake();
     // goes to center triball; this x
-    chassis.follow(Near_Mid_1_AccelAdjust2_txt, 30, 5000, true, false);
+    chassis.follow(Near_Mid_1_PosAdjust_txt, 30, 5000, true, false);
     // waits for intake to do its thing
     pros::delay(500);
     // stops intake
     // intake.brake();
+
+    return;
 
 
     /**
@@ -331,6 +334,14 @@ void near_side_full() {
     intake.brake();
 
     // aaand now it should be touching the matchload bar!
+}
+
+void prog_skills_max() {
+    chassis.setPose(
+        -47.605, 
+        -55.916,
+        0
+    );
 }
 
 /**

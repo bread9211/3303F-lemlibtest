@@ -46,7 +46,10 @@ void Wings::toggle() {
     switch (wings_enabled) {
         case true:
             this->close();
+            break;
+
         case false:
             this->open();
+            break;
     }
 }

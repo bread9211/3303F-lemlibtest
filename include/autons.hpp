@@ -106,14 +106,21 @@ void pidTest();
 
 void autonTest();
 
-void far_side();
+// void far_side();
 
-void near_side_full();
+void near_side_rush();
 
-void far_side_full();
+void far_side_rush();
+
+/**
+ * GOAL: RAHHH. AS MANY TRIBALLS AS POSSIBLE. SCORE!!!
+ * 
+ * REFERENCE: https://www.youtube.com/watch?v=c86VTALprxo
+*/
+void prog_skills_max();
 
 /**
  * AIM:
  * - open wings to 
 */
-void near_side();
+// void near_side();

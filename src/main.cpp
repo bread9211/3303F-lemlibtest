@@ -1,3 +1,8 @@
+/**
+ * TODO: add back giant "info" comment (put it in main.h) abt all details for bot (controls, ports, etc!)
+ * 
+ * TODO: should i be using #pragma once everywhere?
+*/
 #include "main.h"
 
 #include "selection.hpp"
@@ -8,18 +13,20 @@ const int DRIVE_SPEED = 127;
 
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-
-
 /**
- * TODO: find which motor ports are reversed!
+ * TODO: see if this nomenclature is correct
 */
-pros::Motor left_top_front_motor(-18);
-pros::Motor left_top_back_motor(-10);
+// pros::Motor left_top_front_motor(-18);
+pros::Motor left_top_back_motor(-18);
+// pros::Motor left_top_back_motor(-10);
+pros::Motor left_top_front_motor(-10);
 pros::Motor left_bottom_front_motor(-9);
 pros::Motor left_bottom_back_motor(-19);
 
-pros::Motor right_top_front_motor(14);
-pros::Motor right_top_back_motor(12);
+// pros::Motor right_top_front_motor(14);
+pros::Motor right_top_back_motor(14);
+// pros::Motor right_top_back_motor(12);
+pros::Motor right_top_front_motor(12);
 pros::Motor right_bottom_front_motor(13);
 pros::Motor right_bottom_back_motor(11);
 
@@ -97,15 +104,17 @@ Intake intake = Intake(
 // 	'A', 'B'
 // );
 Wings vert_wings = Wings({
-	'A'
+	'B'
 });
 
 /**
  * TODO: set ports!
 */
 Wings horiz_wings = Wings({
-	'B'
+	'F'
 });
+
+// Selector selector = Selector();
 
 // Slapper slapper = Slapper(
 // 	0, 
@@ -137,6 +146,33 @@ Wings horiz_wings = Wings({
 // );
 
 /**
+ * TESTING: (1)
+*/
+void screenTaskFunc(void* chassis) {
+	lemlib::Chassis *myChassis = (lemlib::Chassis *)chassis;
+
+	while (true) {
+		// print robot location to the brain screen
+
+		pros::lcd::print(0, "X: %f", myChassis->getPose().x); // x
+		pros::lcd::print(1, "Y: %f", myChassis->getPose().y); // y
+		pros::lcd::print(2, "Theta: %f", myChassis->getPose().theta); // heading
+		// log position telemetry
+		lemlib::telemetrySink()->info("Chassis pose: {}", myChassis->getPose());
+		
+		// delay to save resources
+		pros::delay(50);
+	}
+}
+
+// Test test = Test();
+
+/**
+ * TESTING: (1)
+*/
+// pros::Task screenTask(screenTaskFunc, &chassis);
+
+/**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
@@ -145,28 +181,32 @@ Wings horiz_wings = Wings({
 void initialize() {
 	printf("[main.py] initialize(): initializing robot...\n");
 
-	pros::lcd::initialize();
+	// pros::lcd::initialize();
 
 	// controller.set_text(0, 0, "HELP");
 
 	chassis.calibrate();
 	chassis.setPose(0, 0, 0);
-	
-	pros::Task screenTask([&]() {
-        while (true) {
-            // print robot location to the brain screen
 
-            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
-            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
-            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-            // log position telemetry
-            lemlib::telemetrySink()->info("Chassis pose: {}", chassis.getPose());
-            // delay to save resources
-            pros::delay(50);
-        }
-    });
+	// pros::Task screenTask(screenTaskFunc, &chassis);
+	// as::init();
 
-	// selector::init();
+	/**
+	 * TESTING: (1)
+	*/
+	// pros::Task screenTask([&]() {
+    //     while (true) {
+    //         // print robot location to the brain screen
+
+    //         pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+    //         pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+    //         pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+    //         // log position telemetry
+    //         lemlib::telemetrySink()->info("Chassis pose: {}", chassis.getPose());
+    //         // delay to save resources
+    //         pros::delay(50);
+    //     }
+    // });
 
 	// Auton far_auton_1("far 1", []() { printf("far 1"); });
 	// Auton far_auton_2("far 1", []() { printf("far 2"); });
@@ -228,6 +268,10 @@ void disabled() {}
 void competition_initialize() {
 	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+
+	// screenTask.suspend();
+
+	// selector::init();
 }
 
 /**
@@ -243,34 +287,68 @@ void competition_initialize() {
  */
 void autonomous() {
 	/**
-	 * TODO: add auton selector functionality here!
+	 * TESTING: (1)
+	 * 
+	 * NOTE: make sure this doesn't break anything!
 	*/
 
-	switch (selector::auton) {
-		// case RED_AUTON_FRONT:
-		// 	printf("red front");
-		// 	break;
-		// case 2:
-		// 	printf("red back");
-		// 	break;
-		// case 3:
-		// 	printf("red nothing");
-		// 	break;
-		// case -1:
-		// 	printf("blue front");
-		// 	break;
-		// case -2:
-		// 	printf("blue back");
-		// 	break;
-		// case -3:
-		// 	printf("blue nothing");
-		// 	break;
-		// case 0:
-		// 	printf("skills");
-		// 	break;
-	}
-	
-	near_side_full();
+	printf("[main.py] autonomous(): starting autons!\n");
+
+	near_side_rush();
+
+	// printf("%d", as::currTab);
+
+	// switch (selector::auton) {
+	// 	// far side
+	// 	case RED_AUTON_RUSH:
+	// 		printf("running far side rush...");
+	// 		// far_side_rush();
+	// 		break;
+	// 	case BLUE_AUTON_RUSH:
+	// 		printf("running near side rush...");
+	// 		// near_side_rush();
+	// 		break;
+	// 	case SKILLS:
+	// 		printf("running skills...");
+	// 		// prog_skills_max();
+	// 		break;
+
+
+	// 	// case RED_AUTON_FRONT:
+	// 	// 	printf("red front");
+	// 	// 	break;
+	// 	// case 2:
+	// 	// 	printf("red back");
+	// 	// 	break;
+	// 	// case 3:
+	// 	// 	printf("red nothing");
+	// 	// 	break;
+	// 	// case -1:
+	// 	// 	printf("blue front");
+	// 	// 	break;
+	// 	// case -2:
+	// 	// 	printf("blue back");
+	// 	// 	break;
+	// 	// case -3:
+	// 	// 	printf("blue nothing");
+	// 	// 	break;
+	// 	// case 0:
+	// 	// 	printf("skills");
+	// 	// 	break;
+	// }
+
+	// /*Change the active screen's background color*/
+    // lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
+
+    // /*Create a white label, set its text and align it to the center*/
+    // lv_obj_t * label = lv_label_create(lv_screen_active());
+    // lv_label_set_text(label, "Hello world");
+    // lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
+    // lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
+	// selector.display();
+
+	printf("[main.py] autonomous(): auton fully finished! (unless auton period ended bfore then ;-;)\n\n");
 }
 
 /**
@@ -287,6 +365,13 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	/**
+	 * TESTING: (1)
+	 * 
+	 * NOTE: make sure this doesn't break anything!
+	*/
+	// screenTask.resume();
+
 	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 
@@ -298,8 +383,8 @@ void opcontrol() {
 		/**
 		 * using motors:
 		*/
-		bool L1_new_press = controller.get_digital(DIGITAL_L1);
-		bool L2_new_press = controller.get_digital(DIGITAL_L2);
+		bool L1_new_press = controller.get_digital_new_press(DIGITAL_L1);
+		bool L2_new_press = controller.get_digital_new_press(DIGITAL_L2);
 		bool R1_pressed = controller.get_digital(DIGITAL_R1);
 		bool R2_pressed = controller.get_digital(DIGITAL_R2);
 
@@ -339,7 +424,7 @@ void opcontrol() {
 		// } else {
 		// 	vert_wings.close();
 		// }
-		if (L1_new_press) {
+		if (L2_new_press) {
 			vert_wings.toggle();
 		}
 
@@ -351,7 +436,7 @@ void opcontrol() {
 		// } else {
 		// 	horiz_wings.close();
 		// }
-		if (L2_new_press) {
+		if (L1_new_press) {
 			horiz_wings.toggle();
 		}
 

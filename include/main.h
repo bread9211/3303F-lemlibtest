@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "lemlib/api.hpp"
+#include "pros/apix.h"
 
 #include "autons.hpp"
 #include "hang.hpp"
@@ -49,11 +50,16 @@ extern Intake intake;
 extern Wings vert_wings;
 // horizontal wings... (for autons)
 extern Wings horiz_wings;
+
 /**
  * You should add more #includes here
  */
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
+
+#define RED_AUTON_RUSH 1
+#define BLUE_AUTON_RUSH -1
+#define SKILLS 0
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

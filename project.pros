@@ -347,8 +347,9 @@
       }
     },
     "upload_options": {
+      "description": "lemlib",
       "icon": "planet",
-      "description": "lemlib"
+      "slot": 1
     }
   }
 }

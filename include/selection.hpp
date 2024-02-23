@@ -1,18 +1,90 @@
+/**
+ * TODO: should i be using `#pragma once` everywhere?
+*/
 #pragma once
 
-#include "selection.hpp"
+#include "main.h"
 
-#include <string>
+/**
+ * iteration 1
+*/
+// /**
+//  * TODO: shld this be included manually, or is it okay to omit? might as well just move 
+// */
+// #include <map>
+// #include <string>
+// #include <stdexcept>
 
-//selector configuration
-#define HUE 360
-#define DEFAULT 1
-#define AUTONS "Front", "Back", "Do Nothing"
+// using FunctionType = std::function<void()>;
 
-#define RED_AUTON_FRONT 1
+// /**
+//  * TODO: consider passing in a vector of `Auton` classes, INSTEAD of using a map of str -> func?
+// */
+// class Selector {
+//     public:
+//         int auton;
 
-namespace selector{
-    extern int auton;
-    const char *b[] = {AUTONS, ""};
-    void init(int hue = HUE, int default_auton = DEFAULT, const char **autons = b);
-}
+//         /**
+//          * TODO: make ID system
+//         */
+//         std::map<std::string, FunctionType> far_autons;
+//         std::map<std::string, FunctionType> near_autons;
+//         std::map<std::string, FunctionType> skills_autons;
+
+//         Selector(
+//             std::map<std::string, FunctionType> far_auton_funcs,
+//             std::map<std::string, FunctionType> near_auton_funcs,
+//             std::map<std::string, FunctionType> skills_auton_funcs
+//         );
+
+//         void display();
+
+//     private:
+//         int autonCount;
+ 
+//         // can hold up to 10 autons!
+//         const char *farBtnmMap[11] = {"", "", "", "", "", "", "", "", "", "", NULL};
+//         const char *nearBtnmMap[11] = {"", "", "", "", "", "", "", "", "", "", NULL};
+//         const char *skillsBtnmMap[11] = {"", "", "", "", "", "", "", "", "", "", NULL};
+// };
+
+/**
+ * iteration 2
+*/
+// class Test {
+//     public:
+//         // // last element ALWAYS has to be null!
+//         const char *farBtnmMap[10] = {"one", "two", "three", "", "", "", "", "", "", NULL};
+//         const char *nearBtnmMap[10] = {"das", "crazy", "bro", "", "", "", "", "", "", NULL};
+//         const char *skillsBtnmMap[10] = {"wut", "the", "???", "", "", "", "", "", "", NULL};
+
+//         int currTab;
+//         int currAuton;
+
+//         // lv_obj_t *tabview;
+
+//         // lv_obj_t *farBtnm;
+//         // lv_obj_t *nearBtnm;
+//         // lv_obj_t *skillsBtnm;
+
+//         Test();
+
+//         // lv_res_t farBtnmAction(const char *txt);
+//         // lv_res_t nearBtnmAction(const char *txt);
+//         // lv_res_t skillsBtnmAction(const char *txt);
+//     private:
+//         // lv_res_t tabAction(lv_obj_t *tabview, uint16_t tab_id);
+
+//         // lv_res_t btnAction(lv_obj_t *btnm, const char *txt);
+
+//         void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
+// };
+
+// namespace as {
+//     int currTab;
+//     int currAuton;
+
+//     void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
+
+//     void init();
+// };
