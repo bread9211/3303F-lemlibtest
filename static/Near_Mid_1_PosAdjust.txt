@@ -1,34 +1,33 @@
--36, -55, 120.264
--35.97, -53, 120.27
--35.89, -51.002, 120.292
--35.756, -49.007, 120.389
--35.568, -47.016, 120.464
--35.329, -45.03, 120.663
--35.038, -43.051, 120.787
--34.699, -41.08, 121.081
--34.311, -39.118, 121.251
--33.879, -37.166, 121.63
--33.403, -35.223, 121.839
--32.887, -33.291, 118.62
--32.335, -31.369, 114.24
--31.746, -29.457, 109.685
--31.128, -27.555, 104.932
--30.482, -25.663, 99.954
--29.811, -23.778, 94.714
--29.122, -21.901, 89.167
--28.415, -20.03, 83.251
--27.696, -18.164, 76.882
--26.969, -16.301, 69.934
--26.238, -14.439, 62.215
--25.509, -12.577, 53.393
--24.784, -10.713, 42.787
--24.069, -8.845, 28.474
--23.512, -7.356, 0
--23.512, -7.356, 0
--16.505, 11.377, 0
+-36, -55, 122.955
+-35.982, -53, 122.828
+-35.934, -51.001, 122.709
+-35.851, -49.002, 122.5
+-35.733, -47.006, 122.413
+-35.578, -45.012, 122.283
+-35.387, -43.021, 122.243
+-35.156, -41.035, 122.217
+-34.889, -39.053, 122.271
+-34.584, -37.076, 122.329
+-34.241, -35.106, 120.148
+-33.864, -33.142, 115.825
+-33.452, -31.184, 111.335
+-33.008, -29.235, 106.656
+-32.535, -27.291, 101.762
+-32.036, -25.355, 96.621
+-31.514, -23.424, 91.19
+-30.971, -21.499, 85.414
+-30.413, -19.578, 79.218
+-29.842, -17.662, 72.495
+-29.261, -15.748, 65.081
+-28.675, -13.836, 56.706
+-28.085, -11.925, 46.857
+-27.494, -10.014, 34.286
+-26.816, -7.811, 0
+-26.816, -7.811, 0
+-20.933, 11.304, 0
 endData
 255
 127
 200
--36, -55, -36, -36, -28.718, -21.439, -23.512, -7.356
-#PATH.JERRYIO-DATA {"appVersion":"0.6.0","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":14,"robotHeight":17.5,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":0.7750015500031,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"jfHR7PiGV4","x":-36,"y":-55,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"6n90A6BWMu","x":-36,"y":-36,"lock":false,"visible":true,"__type":"control"},{"uid":"RVOw9DUC6t","x":-28.717955498100057,"y":-21.43875683916376,"lock":false,"visible":true,"__type":"control"},{"uid":"12k5uwDRx7","x":-23.512420672229407,"y":-7.355630802679513,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[{"uid":"nCS1C0hekJ","xPos":0.9777777777777777,"yPos":1,"followBentRate":true}],"lookaheadKeyframes":[],"uid":"6ZVaM14JbZ"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":0,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":255},"name":"Path","uid":"pALn86o9yx","lock":false,"visible":true}]}
+-36, -55, -36, -36, -31.763, -23.952, -26.816, -7.811
+#PATH.JERRYIO-DATA {"appVersion":"0.6.0","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":14,"robotHeight":17.5,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":0.7750015500031,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"jfHR7PiGV4","x":-36,"y":-55,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"6n90A6BWMu","x":-36,"y":-36,"lock":false,"visible":true,"__type":"control"},{"uid":"RVOw9DUC6t","x":-31.762763525527046,"y":-23.952247904495806,"lock":false,"visible":true,"__type":"control"},{"uid":"12k5uwDRx7","x":-26.816,"y":-7.811,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[{"uid":"nCS1C0hekJ","xPos":0.9777777777777777,"yPos":1,"followBentRate":true}],"lookaheadKeyframes":[],"uid":"6ZVaM14JbZ"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":0,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":255},"name":"Path","uid":"pALn86o9yx","lock":false,"visible":true}]}

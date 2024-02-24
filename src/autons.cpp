@@ -138,6 +138,8 @@ void near_side_rush() {
         , 0
     );
     
+    // starts intake running
+    intake.intake();
 
     /**
      * GOAL: yeets alliance triball
@@ -150,22 +152,20 @@ void near_side_rush() {
     printf("[near_side_full]: close wings cuz otherwise they're gonna get ripped right off\n");
     horiz_wings.close();
     // delay for it to like... fully close
-    pros::delay(750);
+    pros::delay(150);
 
     
     /**
      * GOAL: goes forward and intake the center try ball
     */
-    // starts intake running
-    intake.intake();
+    
     // goes to center triball; this x
-    chassis.follow(Near_Mid_1_PosAdjust_txt, 30, 5000, true, false);
+    chassis.follow(Near_Mid_1_PosAdjust_txt, 15, 1200, true, false);
     // waits for intake to do its thing
     pros::delay(500);
     // stops intake
     // intake.brake();
 
-    return;
 
 
     /**
@@ -173,6 +173,8 @@ void near_side_rush() {
     */
     printf("[near_side_full]: SUPPOSED to go backwards...\n");
     // follows the path but backwards
+    chassis.turnTo(-36, -60, 500, false);
+    chassis.waitUntilDone();
     chassis.follow(Near_Mid_2_Testing_txt, 30, 1500, false, false);
 
     /**
