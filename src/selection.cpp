@@ -171,6 +171,8 @@
 //     lv_obj_align(btnm, NULL, LV_ALIGN_CENTER, 0, 0);
 // }
 
+// iteration 5...?
+
 // namespace as {
 //     // last element ALWAYS has to be null!
 //     const char *farBtnmMap[11] = {"rush", "not rush", "", "", "", "", "", "", "", NULL};
@@ -178,7 +180,7 @@
 //     const char *skillsBtnmMap[11] = {"max", "normal", "", "", "", "", "", "", "", NULL};
 
 //     lv_res_t tabAction(lv_obj_t *tabview, uint16_t tab_id) {
-//         currTab = tab_id;
+//         // currTab = tab_id;
 
 //         return LV_RES_OK;
 //     }

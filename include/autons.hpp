@@ -102,8 +102,10 @@
 //         void scroll_right();
 // };
 
+// drives forward / turns, allowing us to test PID
 void pidTest();
 
+// (drives straight along entire length of central (long) barrier)
 void autonTest();
 
 // void far_side();

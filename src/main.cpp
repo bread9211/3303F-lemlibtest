@@ -5,8 +5,6 @@
 */
 #include "main.h"
 
-#include "selection.hpp"
-
 const int DRIVE_SPEED = 127;
 
 // port definitions
@@ -312,41 +310,6 @@ void autonomous() {
 	// 		printf("running skills...");
 	// 		// prog_skills_max();
 	// 		break;
-
-
-	// 	// case RED_AUTON_FRONT:
-	// 	// 	printf("red front");
-	// 	// 	break;
-	// 	// case 2:
-	// 	// 	printf("red back");
-	// 	// 	break;
-	// 	// case 3:
-	// 	// 	printf("red nothing");
-	// 	// 	break;
-	// 	// case -1:
-	// 	// 	printf("blue front");
-	// 	// 	break;
-	// 	// case -2:
-	// 	// 	printf("blue back");
-	// 	// 	break;
-	// 	// case -3:
-	// 	// 	printf("blue nothing");
-	// 	// 	break;
-	// 	// case 0:
-	// 	// 	printf("skills");
-	// 	// 	break;
-	// }
-
-	// /*Change the active screen's background color*/
-    // lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
-
-    // /*Create a white label, set its text and align it to the center*/
-    // lv_obj_t * label = lv_label_create(lv_screen_active());
-    // lv_label_set_text(label, "Hello world");
-    // lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
-    // lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
-
-	// selector.display();
 
 	printf("[main.py] autonomous(): auton fully finished! (unless auton period ended bfore then ;-;)\n\n");
 }

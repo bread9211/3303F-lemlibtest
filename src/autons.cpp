@@ -13,15 +13,10 @@ ASSET(Near_3_txt);
 ASSET(Near_4_txt);
 
 // new near autons
-ASSET(Near_Mid_1_Working_txt);
-ASSET(Near_Mid_1_Testing_txt);
-ASSET(Near_Mid_2_Testing_txt);
-
-// ASSET(Near_Mid_1_AccelAdjust2_txt);
 ASSET(Near_Mid_1_PosAdjust_txt)
+ASSET(Near_Mid_2_Testing_txt);
 ASSET(Near_Mid_3_Curve_txt);
-// ASSET(Near_Mid_3_Testing_txt);
-// ASSET(Near_Mid_2_Cooking_txt);
+
 
 // new far autons
 ASSET(Far_Rush_1);
@@ -36,7 +31,7 @@ ASSET(Far_Rush_6);
 // ASSET()
 
 // test autons
-ASSET(Test_1_txt);
+ASSET(Test_txt);
 
 void pidTest() {
     chassis.setPose(0, 0, 0);
@@ -49,7 +44,7 @@ void pidTest() {
 
 void autonTest() {
     chassis.setPose(-12, -36, 0);
-    chassis.follow(Test_1_txt, 15, 5000, true, false);
+    chassis.follow(Test_txt, 15, 5000, true, false);
     chassis.waitUntilDone();
 }
 
@@ -321,18 +316,18 @@ void near_side_rush() {
         , false
     );
 
+    intake.outake();
+
     // shlams into all le triballs, moving towards elevation bar but NOT crossing it!
     chassis.moveToPoint(
-        -14
+        -20
         , -60
         , 1500
         , true
-        , 127.0
+        , 80.0
         , false
     );
 
-    intake.outake();
-    pros::delay(500);
     intake.brake();
 
     // aaand now it should be touching the matchload bar!

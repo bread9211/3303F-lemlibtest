@@ -81,8 +81,8 @@
 // };
 
 // namespace as {
-//     int currTab;
-//     int currAuton;
+//     // int currTab;
+//     // int currAuton;
 
 //     void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
 
