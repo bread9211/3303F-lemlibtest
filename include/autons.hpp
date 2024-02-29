@@ -1,5 +1,13 @@
-// "actual" width: 14 and a quarter inches / 14.25 inches
-// "actual" height ~ 21 in
+/**
+ * things to keep in mind:
+ * - length of bot ("height"): 21 inches (including intake--17 inches without)
+ *   - NOTE: currently, the autons use 21 inches as length!
+ * - width of bot: 15.5 inches
+ * 
+ * previous auton widths (before states rebuild):
+ * WIDTH: 14
+ * HEIGHT: 17.5
+*/
 
 /**
  * TODO: will width and height values need to encompass WHOLE BOT? (height value seemingly not including intake a little...)
@@ -110,6 +118,11 @@ void autonTest();
 
 // void far_side();
 
+/**
+ * TODO: see lowest timeouts we can set for `chassis.follow()` and `chassis.turnTo()` calls
+ * TODO: find a good lookahead distance for `chassis.follow()` calls
+ * TODO: see least possible buffer delay you can set for intaking triballs / opening and closing wings
+*/
 void near_side_rush();
 
 void far_side_rush();

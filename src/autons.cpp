@@ -1,22 +1,9 @@
 #include "main.h"
 
-// old far autons
-ASSET(Far_1_txt);
-ASSET(Far_2_txt);
-ASSET(Far_3_txt);
-ASSET(Far_4_txt);
-
-// old near autons
-ASSET(Near_1_txt);
-ASSET(Near_2_txt);
-ASSET(Near_3_txt);
-ASSET(Near_4_txt);
-
-// new near autons
-ASSET(Near_Mid_1_PosAdjust_txt)
-ASSET(Near_Mid_2_Testing_txt);
-ASSET(Near_Mid_3_Curve_txt);
-
+// near auton assets
+ASSET(Near_Rush_1_SizeAdjust_txt);
+ASSET(Near_Rush_2_SizeAdjust_txt);
+ASSET(Near_Rush_3_SizeAdjust_txt);
 
 // new far autons
 ASSET(Far_Rush_1);
@@ -26,12 +13,10 @@ ASSET(Far_Rush_4);
 ASSET(Far_Rush_5);
 ASSET(Far_Rush_6);
 
-
-// programming skills autons
-// ASSET()
-
 // test autons
 ASSET(Test_txt);
+
+
 
 void pidTest() {
     chassis.setPose(0, 0, 0);
@@ -42,10 +27,243 @@ void pidTest() {
     chassis.moveToPose(0, 0, 0, 10000);
 }
 
-void autonTest() {
-    chassis.setPose(-12, -36, 0);
-    chassis.follow(Test_txt, 15, 5000, true, false);
-    chassis.waitUntilDone();
+/**
+ * TODO: verify lookahead distances!
+ * TODO: does "heading" parameter matter for end control points?
+ * 
+ * START: facing front, middle "legal" tile, AT THE FRONT OF SAID TILE (aligned with back part of "connectors") (-35, 55)
+ * 
+ * ISSUES:
+ * - probably needs to be more right
+ * 
+ * TIME: "about" 14.2 seconds
+*/
+void near_side_rush() {
+    // initially sets position/heading to that at the beginning of the first path file!
+    chassis.setPose(
+        -36
+        , -58
+        , 0
+    );
+
+    printf("[near_side_rush]: starting near side autons...\n");
+    printf("----------------------------------------------\n\n");
+    
+
+
+    /**
+     * GOAL: yeets alliance triball
+    */
+    // starts intake running
+    printf("[near_side_rush]: starting intake");
+    intake.intake();
+
+    // opens wings to yeet triball
+    printf("[near_side_rush]: opening wings to yeet triballs\n");
+    horiz_wings.open();
+    // delay for it to like... fully open
+    pros::delay(500);
+    
+    // closes wings
+    printf("[near_side_rush]: close wings cuz otherwise they're gonna get ripped right off\n");
+    horiz_wings.close();
+    // delay for it to like... fully close
+    pros::delay(500);
+
+    
+
+    /**
+     * GOAL: goes forward and intake the center triball
+    */
+    
+
+    // goes to center triball
+    printf("[near_side_rush]: going to intake center triball...");
+
+    chassis.follow(
+        Near_Rush_1_SizeAdjust_txt /* path file to follow */
+
+        , 15                       /* lookahead distance */
+
+        , 1200                     /* timeout */
+
+        , true                     /* we're moving forwards along the path! 
+                                      (i.e. the front of the robot is moving towards the finish point) */
+
+        , false                    /* we're NOT running this asynchronously; waits for path to finish before
+                                      continuing, unless the path times out*/
+    );
+
+
+    // waits for intake to do its thing
+    printf("[near_side_rush]: intaking center triball...");
+    pros::delay(500);
+
+
+
+    /**
+     * GOAL: returns back to initial position, following same path as before!
+    */
+    printf("[near_side_full]: going back to initial position...\n");
+    /**
+     * TODO: dunno why this is here...?
+    */
+    // chassis.turnTo(
+    //     -36
+    //     , -60
+    //     , 500
+    //     , false);
+    // chassis.waitUntilDone();
+    // follows the path but backwards
+    chassis.follow(
+        Near_Rush_2_SizeAdjust_txt // path
+        , 15 // lookahead
+        , 1500 // timeout
+        , false
+        , false
+    );
+
+
+
+    /**
+     * GOAL: turn toward triball under elevation bar!
+    */
+    chassis.turnTo(
+        0       // x
+        , -60   // y
+        , 1000  // how long it can spend turning (1000 ms)
+        , true  // turns to face triball with FRONT of robot
+        , 127.0 // max speed 127
+        , false // will NOT run asynchronously (blocking function)
+    );
+
+
+
+    /**
+     * GOAL: outtake intaked triball (from middle of field)
+    */
+    // starts outtaking the triball
+    intake.outake();
+
+    // waits for intake to do its thing
+    pros::delay(500);
+    
+    // stops intake!
+    intake.brake();
+
+
+
+    /**
+     * GOAL: turn towards goal
+    */
+    chassis.turnTo(
+        -60     // x
+        , -36   // y
+        , 1000  // timeout
+        , false  // backwards
+        , 127.0 // max speed
+        , false // NO ASYNC; IS BLOCKING
+    );
+
+    // rams into goal with BACK of bot
+    chassis.follow(
+        Near_Rush_3_SizeAdjust_txt // file
+        , 15 // lookahead
+        , 2000 // timeout
+        , false // going BACKWARDS
+        , false // asynchronous!!
+    );
+
+
+
+    /**
+     * GOAL: return back to previous position, slightly more towards the matchload bar
+    */
+    chassis.moveToPoint(
+        -58      // x
+        , -44    // y
+        , 1000   // timeout = 500ms
+        , true   // moving FORWARDS
+        , 127.0  // maxSpeed
+        , false  // blocking
+    );
+
+
+
+    /**
+     * GOAL: rotate towards next intended position
+    */
+    /**
+     * TODO: could we just do "moveToPose" so it would turn and then go towards the point, or would it do the funny and swing turn while driving?
+    */
+    chassis.turnTo(
+        -44   // x
+        , -59 // y
+        , 1500 // timeout
+        , true // moving FORWARD
+        , 127.0 // max speed
+        , false // asynchronous
+    );
+
+
+    // opens vertical wings so the triball in the matchload bar can be untriballed (i mean unmatchloaded (i mean removed from the matchload bar))
+    // you get what i mean...
+    vert_wings.open();
+
+
+    /**
+     * GOAL: go towards next intended position
+    */
+    chassis.moveToPoint(
+        -44     // x
+        , -59   // y
+        , 1500  // timeout
+        , true  // moving forward
+        , 127.0 // max speed
+        , false // async
+    );
+
+    // closes vertical wings
+    vert_wings.close();
+    // waits a BIIIT longer for wings to close 
+    pros::delay(100);
+
+
+
+    /**
+     * GOAL: turns robot towards elevation bar, (hopefully) getting triball out of matchload bar
+    */
+    chassis.turnTo(
+        0
+        , -59
+        , 1000
+        , true
+        , 127.0
+        , false
+    );
+
+
+
+    /**
+     * GOAL: touches elevation bar and pushes all triballs to other side of the field!
+    */
+    // makes sure triballs don't get stuck in the intake
+    intake.outake();
+
+    // shlams into all le triballs, moving towards elevation bar but NOT crossing it!
+    chassis.moveToPoint(
+        -10    // x
+        , -60  // y
+        , 1500 // timeout
+        , true // moving FORWARDS!
+        , 127.0 // max speed
+        , false // NOT Async
+    );
+
+    // stops intake cuz like we don't like wasting those precious watts here!!!
+    intake.brake();
+
+    // aaand now it should be touching the matchload bar!
 }
 
 void far_side_rush() {
@@ -109,228 +327,10 @@ void far_side_rush() {
     // checkpoint 7 (final)
 }
 
-/**
- * TODO: verify lookahead distances!
- * TODO: does "heading" parameter matter for end control points?
- * 
- * START: facing front, middle "legal" tile, AT THE FRONT OF SAID TILE (aligned with back part of "connectors") (-35, 55)
- * 
- * ISSUES:
- * - probably needs to be more right
- * 
- * TIME: "about" 14.2 seconds
-*/
-void near_side_rush() {
-    // initially sets position/heading to that at beginning of file!
-    // chassis.setPose(
-    //     -36 // x
-    //     , -60 // y
-    //     , 0 // heading (degrees by default)
-    // );
-    chassis.setPose(
-        -36
-        , -55
-        , 0
-    );
-    
-    // starts intake running
-    intake.intake();
-
-    /**
-     * GOAL: yeets alliance triball
-    */
-    printf("[near_side_full]: opening wings to yeet triballs\n");
-    horiz_wings.open();
-    // delay for it to like... fully open
-    pros::delay(750);
-    
-    printf("[near_side_full]: close wings cuz otherwise they're gonna get ripped right off\n");
-    horiz_wings.close();
-    // delay for it to like... fully close
-    pros::delay(150);
-
-    
-    /**
-     * GOAL: goes forward and intake the center try ball
-    */
-    
-    // goes to center triball; this x
-    chassis.follow(Near_Mid_1_PosAdjust_txt, 15, 1200, true, false);
-    // waits for intake to do its thing
-    pros::delay(500);
-    // stops intake
-    // intake.brake();
-
-
-
-    /**
-     * GOAL: returns back to initial position (hopefully facing the same way... HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH)
-    */
-    printf("[near_side_full]: SUPPOSED to go backwards...\n");
-    // follows the path but backwards
-    chassis.turnTo(-36, -60, 500, false);
+void autonTest() {
+    chassis.setPose(-12, -36, 0);
+    chassis.follow(Test_txt, 15, 5000, true, false);
     chassis.waitUntilDone();
-    chassis.follow(Near_Mid_2_Testing_txt, 30, 1500, false, false);
-
-    /**
-     * GOAL: turn toward triball under elevation bar!
-    */
-    chassis.turnTo(
-        0       // x
-        , -60   // y
-        , 1000  // how long it can spend turning (1000 ms)
-        , true  // turns to face triball w/ FRONT of robor
-        , 127.0 // max speed 127
-        , false // will NOT run asynchronously (blocking function)
-    );
-
-    /**
-     * GOAL: outtake intaked triball (from middle of field)
-    */
-    intake.outake();
-    // waits for intake to do its thing
-    pros::delay(1000);
-    // stops intake!
-    intake.brake();
-
-    /**
-     * GOAL: turn towards goal
-    */
-    chassis.turnTo(
-        -60     // x
-        , -36   // y
-        , 1000  // timeout
-        , false  // backwards
-        , 127.0 // max speed
-        , false // NO ASYNC; IS BLOCKING
-    );
-
-    // /**
-    //  * GOAL: move towards the goal (haha, nice pun!)
-    // */
-    // // chassis.follow(
-    // //     Near_Mid_3_Testing_txt // le file to follow
-    // //     , 15                   // le lookahead dist in inches
-    // //     , 2000                 // timeout (2000 ms)
-    // //     , true                 // forwards
-    // //     , false                // NO ASYNC; IS BLOCKING
-    // // );
-    // chassis.moveToPoint(
-    //     -60     // x
-    //     , -36   // y
-    //     , 1500  // timeout
-    //     , true  // forwards
-    //     , 127.0 // maxSpeed
-    //     , false // async
-    // );
-
-    // /**
-    //  * GOAL: turn TOWARDS the goal
-    // */
-    // chassis.turnTo(
-    //     -60     // x
-    //     , 0     // y
-    //     , 1000  // timeout
-    //     , true  // forwards
-    //     , 127.0 // maxSpeed
-    //     , false // blocking
-    // );
-
-    // /**
-    //  * GOAL: push into le goal
-    //  * 
-    //  * NOTE: the point is INTENTIONALLY set to be on the opposite side of the goal, EVEN THOUGH
-    //  * the bot can't get there, to ensure that the bot is actually PUSHING AGAINST the goal
-    //  * and scoring the alliance triball
-    // */
-    // chassis.moveToPoint(
-    //     -60     // x
-    //     , 24   // y
-    //     , 1000   // timeout
-    //     , true  // forwards
-    //     , 127.0 // 
-    //     , false
-    // );
-
-    // rams into goal with BACK of bot
-    chassis.follow(Near_Mid_3_Curve_txt, 15, 2000, false, false);
-
-    /**
-     * GOAL: return back to previous position, slightly more towards the matchload bar
-    */
-    chassis.moveToPoint(
-        -60     // x
-        , -44   // y
-        , 1000   // timeout = 500ms
-        , true // moving backwards
-        , 127.0 // maxSpeed
-        , false // blocking
-    );
-
-
-    /**
-     * GOAL: rotate towards next intended position
-    */
-    /**
-     * TODO: could we just do "moveToPose" so it would turn and then go towards the point, or would it do the funny and swing turn while driving?
-    */
-    chassis.turnTo(
-        -44
-        , -60
-        , 1500
-        , true
-        , 127.0
-        , false
-    );
-
-    // opens vertical wings so the triball in the matchload bar can be untriballed (i mean unmatchloaded)
-    vert_wings.open();
-    pros::delay(50);
-
-    /**
-     * GOAL: go towards next intended position
-    */
-    chassis.moveToPoint(
-        -44
-        , -60
-        , 1500
-        , true
-        , 127.0
-        , false
-    );
-
-    // closes vertical wings
-    vert_wings.close();
-    // waits a BIIIT longer for wings to close 
-    pros::delay(50);
-
-    /**
-     * GOAL: turns robot towards matchload bar, (hopefully) getting triball out of matchload bar
-    */
-    chassis.turnTo(
-        -8.75
-        , -60
-        , 1000
-        , true
-        , 127.0
-        , false
-    );
-
-    intake.outake();
-
-    // shlams into all le triballs, moving towards elevation bar but NOT crossing it!
-    chassis.moveToPoint(
-        -20
-        , -60
-        , 1500
-        , true
-        , 80.0
-        , false
-    );
-
-    intake.brake();
-
-    // aaand now it should be touching the matchload bar!
 }
 
 void prog_skills_max() {

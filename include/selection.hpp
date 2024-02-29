@@ -80,11 +80,32 @@
 //         void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
 // };
 
+// iteration 5
 // namespace as {
-//     // int currTab;
-//     // int currAuton;
+//     extern int currTab;
+//     extern int currAuton;
 
 //     void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
 
 //     void init();
+// };
+
+// iteration 6
+
+// class Selector {
+//     public:
+//         int currTab = 0;
+//         int currAuton = 0;
+
+//         lv_res_t tabAction(lv_obj_t *tabview, uint16_t tab_id);
+
+//         lv_res_t btnAction(lv_obj_t *btnm, const char *txt);
+
+//         const char *farBtnmMap[11] = {"rush", "not rush", "", "", "", "", "", "", "", NULL};
+//         const char *nearBtnmMap[11] = {"rush", "not rush", "", "", "", "", "", "", "", NULL};
+//         const char *skillsBtnmMap[11] = {"max", "normal", "", "", "", "", "", "", "", NULL};
+
+//         Selector();
+
+//         void createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]);
 // };

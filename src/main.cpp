@@ -2,8 +2,13 @@
  * TODO: add back giant "info" comment (put it in main.h) abt all details for bot (controls, ports, etc!)
  * 
  * TODO: should i be using #pragma once everywhere?
+ * 
+ * TODO: set up README.md for this "repo"!
 */
 #include "main.h"
+
+// extern int currTab;
+// extern int currAuton;
 
 const int DRIVE_SPEED = 127;
 
@@ -14,26 +19,34 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 /**
  * TODO: see if this nomenclature is correct
 */
-// pros::Motor left_top_front_motor(-18);
-pros::Motor left_top_back_motor(-18);
-// pros::Motor left_top_back_motor(-10);
-pros::Motor left_top_front_motor(-10);
-pros::Motor left_bottom_front_motor(-9);
-pros::Motor left_bottom_back_motor(-19);
+// // pros::Motor left_top_front_motor(-18);
+// pros::Motor left_top_back_motor(-18);
+// // pros::Motor left_top_back_motor(-10);
+// pros::Motor left_top_front_motor(-10);
+// pros::Motor left_bottom_front_motor(-9);
+// pros::Motor left_bottom_back_motor(-19);
 
-// pros::Motor right_top_front_motor(14);
-pros::Motor right_top_back_motor(14);
-// pros::Motor right_top_back_motor(12);
-pros::Motor right_top_front_motor(12);
-pros::Motor right_bottom_front_motor(13);
-pros::Motor right_bottom_back_motor(11);
+pros::Motor left_front(-19);
+pros::Motor left_middle(-18);
+pros::Motor left_back(-20);
+
+// // pros::Motor right_top_front_motor(14);
+// pros::Motor right_top_back_motor(14);
+// // pros::Motor right_top_back_motor(12);
+// pros::Motor right_top_front_motor(12);
+// pros::Motor right_bottom_front_motor(13);
+// pros::Motor right_bottom_back_motor(11);
+
+pros::Motor right_front(11);
+pros::Motor right_middle(12);
+pros::Motor right_back(13);
 
 pros::Motor_Group left_drive({
-	left_top_front_motor, left_top_back_motor, left_bottom_front_motor, left_bottom_back_motor
+	left_front, left_middle, left_back
 });
 
 pros::Motor_Group right_drive({
-	right_top_front_motor, right_top_back_motor, right_bottom_front_motor, right_bottom_back_motor
+	right_front, right_middle, right_back
 });
 
 pros::Imu inertial_sensor(20);
@@ -87,15 +100,15 @@ lemlib::ControllerSettings angularController(
 
 lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
-// make hang a TOGGLE!
-Hang hang = Hang('H');
+// Hang hang = Hang('H');
+Hang hang = Hang(10);
 
 /**
  * TODO: set intake ports
  * INTAKE: uses motors
 */
 Intake intake = Intake(
-	5, pros::E_MOTOR_BRAKE_HOLD
+	-17, pros::E_MOTOR_BRAKE_HOLD
 );
 
 // Wings vert_wings = Wings(
@@ -111,6 +124,8 @@ Wings vert_wings = Wings({
 Wings horiz_wings = Wings({
 	'F'
 });
+
+// Selector s = Selector();
 
 // Selector selector = Selector();
 
@@ -184,10 +199,9 @@ void initialize() {
 	// controller.set_text(0, 0, "HELP");
 
 	chassis.calibrate();
-	chassis.setPose(0, 0, 0);
+	// chassis.setPose(0, 0, 0);
 
 	// pros::Task screenTask(screenTaskFunc, &chassis);
-	// as::init();
 
 	/**
 	 * TESTING: (1)
@@ -294,6 +308,10 @@ void autonomous() {
 
 	near_side_rush();
 
+	// pros::delay(5000);
+
+	// printf("%d", currAuton);
+
 	// printf("%d", as::currTab);
 
 	// switch (selector::auton) {
@@ -351,14 +369,19 @@ void opcontrol() {
 		bool R1_pressed = controller.get_digital(DIGITAL_R1);
 		bool R2_pressed = controller.get_digital(DIGITAL_R2);
 
-		bool A_new_press = controller.get_digital_new_press(DIGITAL_A);
-
+		bool X_pressed = controller.get_digital(DIGITAL_X);
+		bool B_pressed = controller.get_digital(DIGITAL_B);
+		
 		/**
 		 * HANG:
 		*/
-		if (A_new_press) {
+		if (X_pressed) {
 			// toggles hang (if hang open, it will close. if hang close, it will open)
-			hang.toggle();
+			hang.open_hang();
+		} else if (B_pressed) {
+			hang.close_hang();
+		} else {
+			hang.stop_hang();
 		}
 
 		/**

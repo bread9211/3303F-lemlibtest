@@ -3,8 +3,6 @@
 */
 #include "main.h"
 
-#include "selection.hpp"
-
 /**
  * iteration 1
 */
@@ -174,12 +172,17 @@
 // iteration 5...?
 
 // namespace as {
+//     currTab = 0;
+//     currAuton = 0;
+
 //     // last element ALWAYS has to be null!
 //     const char *farBtnmMap[11] = {"rush", "not rush", "", "", "", "", "", "", "", NULL};
 //     const char *nearBtnmMap[11] = {"rush", "not rush", "", "", "", "", "", "", "", NULL};
 //     const char *skillsBtnmMap[11] = {"max", "normal", "", "", "", "", "", "", "", NULL};
 
 //     lv_res_t tabAction(lv_obj_t *tabview, uint16_t tab_id) {
+//         printf("switched to tab!");
+
 //         // currTab = tab_id;
 
 //         return LV_RES_OK;
@@ -187,9 +190,37 @@
 
 //     lv_res_t btnAction(lv_obj_t *btnm, const char *txt) {
 //         printf("changed to auton %s", txt);
-//         // for (int i = 0; i < 10; i++) {
-//         //     if strcmp(txt, btnm)
-//         // }
+
+//         switch (currTab) {
+//             // far autons
+//             case 0:
+//                 for (int i = 0; i < 10; i++) {
+//                     if (strcmp(farBtnmMap[i], txt) == 0) {
+//                         currAuton = i;
+//                     }
+//                 }
+
+//                 break;
+//             // near autons
+//             case 1:
+//                 for (int i = 0; i < 10; i++) {
+//                     if (strcmp(nearBtnmMap[i], txt) == 0) {
+//                         currAuton = i;
+//                     }
+//                 }
+
+//                 break;
+//             // skills autons
+//             case 2:
+//                 for (int i = 0; i < 10; i++) {
+//                     if (strcmp(skillsBtnmMap[i], txt) == 0) {
+//                         currAuton = i;
+//                     }
+//                 }
+
+//                 break;
+//         }
+
 //         return LV_RES_OK;
 //     }
 
@@ -222,11 +253,93 @@
 //          * when I uncomment this line
 //         */
 //         // lv_tabview_set_tab_act(tab1, 1, false);
-//         lv_tabview_set_tab_load_action(tabview, tabAction);
+//         // lv_tabview_set_tab_load_action(tabview, tabAction);
 
 //         // Create button matrices in each tab
 //         createButtonMatrix(farTab, farBtnmMap);
 //         createButtonMatrix(nearTab, nearBtnmMap);
 //         createButtonMatrix(skillsTab, skillsBtnmMap);
 //     }
+// };
+
+// iteration 6
+// Selector::Selector() {
+//     /**
+//      * TODO: change defaults?
+//     */
+    
+//     // Initialize the tabview
+//     lv_obj_t *tabview = lv_tabview_create(lv_scr_act(), nullptr);
+
+//     // Add tabs
+//     lv_obj_t *farTab = lv_tabview_add_tab(tabview, "Far Tab");
+//     lv_obj_t *nearTab = lv_tabview_add_tab(tabview, "Near Tab");
+//     lv_obj_t *skillsTab = lv_tabview_add_tab(tabview, "Skills Tab");
+
+//     /**
+//      * TODO: disable sliding animations when switching tabs?!?!
+//      * for some reason it's giving a data abort exception
+//      * when I uncomment this line
+//     */
+//     // lv_tabview_set_tab_act(tab1, 1, false);
+//     // lv_tabview_set_tab_load_action(tabview, tabAction);
+
+//     // Create button matrices in each tab
+//     createButtonMatrix(farTab, farBtnmMap);
+//     createButtonMatrix(nearTab, nearBtnmMap);
+//     createButtonMatrix(skillsTab, skillsBtnmMap);
+// };
+
+// lv_res_t tabAction(lv_obj_t *tabview, uint16_t tab_id) {
+//     printf("switched to tab!");
+
+//     currTab = tab_id;
+
+//     return LV_RES_OK;
+// };
+
+// lv_res_t btnAction(lv_obj_t *btnm, const char *txt) {
+//     printf("changed to auton %s", txt);
+
+//     switch (currTab) {
+//         // far autons
+//         case 0:
+//             for (int i = 0; i < 10; i++) {
+//                 if (strcmp(farBtnmMap[i], txt) == 0) {
+//                     currAuton = i;
+//                 }
+//             }
+
+//             break;
+//         // near autons
+//         case 1:
+//             for (int i = 0; i < 10; i++) {
+//                 if (strcmp(nearBtnmMap[i], txt) == 0) {
+//                     currAuton = i;
+//                 }
+//             }
+
+//             break;
+//         // skills autons
+//         case 2:
+//             for (int i = 0; i < 10; i++) {
+//                 if (strcmp(skillsBtnmMap[i], txt) == 0) {
+//                     currAuton = i;
+//                 }
+//             }
+
+//             break;
+//     }
+
+//     return LV_RES_OK;
+// };
+
+// void Selector::createButtonMatrix(lv_obj_t* parent, const char* btnm_map[]) {
+//     lv_obj_t* btnm = lv_btnm_create(parent, nullptr);
+//     lv_btnm_set_map(btnm, btnm_map);
+//     lv_btnm_set_toggle(btnm, true, 1);
+//     lv_btnm_set_action(btnm, btnAction);
+//     lv_obj_set_size(btnm, 450, 50);
+//     lv_obj_set_pos(btnm, 0, 100);
+//     lv_obj_align(btnm, NULL, LV_ALIGN_CENTER, 0, 0);
 // };
