@@ -49,7 +49,7 @@ pros::Motor_Group right_drive({
 	right_front, right_middle, right_back
 });
 
-pros::Imu inertial_sensor(20);
+pros::Imu inertial_sensor(1);
 
 lemlib::Drivetrain drivetrain {
     &left_drive, // left drivetrain motors
@@ -71,13 +71,17 @@ lemlib::OdomSensors sensors {
 
 // kp, ki, kd, windup, smallerror, smallerrortimeout, largeerror, largeerrortimeout, slew
 
-// 20 kP, 5 kD
-// 
+// 20 kP, 5 kD -> NOT FULLY TUNED YET (i.e. gotten to step 5 where oscillation can no longer be stopped) 
+
+// 10, <5 -> NOT overshooting but oscillating
+// 9, no D -> undershooting
+
+// 10, 5 -> still overshooting
 
 lemlib::ControllerSettings linearController(
-	21 // kP
+	9 // kP
 	, 0 // kI
-	, 15 // kD
+	, 7 // kD
 	, 0 // antiWindup
 	, 1
 	, 100
@@ -86,10 +90,13 @@ lemlib::ControllerSettings linearController(
 	, 0
 );
 
+// 2, 8
+// 3, 16 -> NOT FULLY TUNED YET (i.e. gotten to step 5 where oscillation can no longer be stopped)
+
 lemlib::ControllerSettings angularController(
-	2 // kP
+	3 // kP
 	, 0 // kI
-	, 9 // kD
+	, 16 // kD
 	, 0 // antiWindup
 	, 1
 	, 100
@@ -310,10 +317,6 @@ void autonomous() {
 
 	// pros::delay(5000);
 
-	// printf("%d", currAuton);
-
-	// printf("%d", as::currTab);
-
 	// switch (selector::auton) {
 	// 	// far side
 	// 	case RED_AUTON_RUSH:
@@ -382,7 +385,7 @@ void opcontrol() {
 			hang.close_hang();
 		} else {
 			hang.stop_hang();
-		}
+		} 
 
 		/**
 		 * INTAKE: using motors

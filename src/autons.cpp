@@ -17,14 +17,32 @@ ASSET(Far_Rush_6);
 ASSET(Test_txt);
 
 
-
-void pidTest() {
+/**
+ * For those not in the know, PID stands for proportional, integral, derivative control. I’ll break it down:
+ * P: if you’re not where you want to be, get there.
+ * I: if you haven’t been where you want to be for a long time, get there faster
+ * D: if you’re getting close to where you want to be, slow down.
+ *
+ * https://www.youtube.com/watch?v=qKy98Cbcltw
+*/
+void pidLinearTest() {
+    /**
+     * tuning move
+    */
     chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, 10, 1000, true, 127, false);
-    pros::delay(1000);
-    chassis.turnTo(10, 10, 1000, true, 127, false);
-    pros::delay(1000);
-    chassis.moveToPose(0, 0, 0, 10000);
+    chassis.moveToPoint(0, 15, 15000, true, 127.0, false);
+
+    // pros::delay(1000);
+    // chassis.moveToPoint(0, 10, 1000, true, 127, false);
+    // pros::delay(1000);
+    // chassis.turnTo(10, 10, 1000, true, 127, false);
+    // pros::delay(1000);
+    // chassis.moveToPose(0, 0, 0, 10000);
+}
+
+void pidAngularTest() {
+    chassis.setPose(0, 0, 0);
+    chassis.turnTo(10, 0, 15000, true, 127.0, false);
 }
 
 /**
@@ -38,6 +56,8 @@ void pidTest() {
  * 
  * TIME: "about" 14.2 seconds
 */
+
+// currently path 1 is NOT reaching the triball; missing by a GOOD 30% of a tile
 void near_side_rush() {
     // initially sets position/heading to that at the beginning of the first path file!
     chassis.setPose(
@@ -165,15 +185,15 @@ void near_side_rush() {
         , false // NO ASYNC; IS BLOCKING
     );
 
-    // rams into goal with BACK of bot
+    // rams into goal with BACK of bot (NOTE: the path file is designed to direct the bot toward a position inside the goal, which
+    // it will obviously never reach, but this ensures it will spend time like running motors and getting triball under goal if not already)
     chassis.follow(
         Near_Rush_3_SizeAdjust_txt // file
         , 15 // lookahead
-        , 2000 // timeout
+        , 1500 // timeout
         , false // going BACKWARDS
         , false // asynchronous!!
     );
-
 
 
     /**
