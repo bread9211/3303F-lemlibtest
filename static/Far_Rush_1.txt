@@ -1,37 +1,33 @@
-35, -57.5, 123.907
-35.019, -55.5, 123.852
-34.955, -53.502, 123.813
-34.807, -51.507, 123.789
-34.562, -49.523, 123.793
-34.229, -47.551, 123.82
-33.813, -45.595, 123.922
-33.301, -43.662, 123.994
-32.715, -41.75, 124.079
-32.046, -39.865, 124.283
-31.305, -38.008, 124.398
-30.495, -36.179, 124.648
-29.622, -34.38, 124.781
-28.694, -32.609, 125.055
-27.711, -30.867, 125.195
-26.687, -29.149, 125.478
-25.619, -27.458, 125.62
-24.52, -25.787, 125.762
-23.389, -24.137, 126.046
-22.237, -22.503, 126.187
-21.064, -20.883, 124.181
-19.878, -19.272, 120.004
-18.683, -17.669, 115.676
-17.484, -16.068, 111.18
-16.285, -14.467, 106.494
-15.093, -12.861, 101.592
-13.912, -11.247, 96.442
-12.748, -9.621, 91
-12.435, -9.178, 0
-12.435, -9.178, 0
-0.925, 7.178, 0
+35, -58.5, 126.361
+34.97, -56.5, 126.354
+34.917, -54.501, 126.348
+34.839, -52.502, 126.335
+34.737, -50.505, 126.329
+34.61, -48.509, 126.318
+34.457, -46.515, 126.313
+34.278, -44.523, 126.304
+34.074, -42.534, 126.3
+33.842, -40.547, 126.293
+33.586, -38.564, 126.287
+33.302, -36.584, 126.285
+32.991, -34.608, 126.283
+32.655, -32.637, 126.282
+32.291, -30.67, 126.282
+31.901, -28.708, 126.285
+31.485, -26.752, 126.289
+31.043, -24.802, 126.297
+30.575, -22.857, 122.882
+30.08, -20.919, 118.659
+29.561, -18.988, 114.28
+29.017, -17.063, 109.727
+28.45, -15.146, 104.976
+27.859, -13.235, 100
+27.613, -12.459, 0
+27.613, -12.459, 0
+21.566, 6.605, 0
 endData
 255
 127
 200
-35, -57.5, 35.705, -36.636, 22.209, -23.14, 12.435, -9.178
-#PATH.JERRYIO-DATA {"appVersion":"0.6.0","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":17,"robotHeight":21,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"ewcSBY78BL","x":35,"y":-57.5,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"RKpqW4bK7F","x":35.7054820901271,"y":-36.636281936063675,"lock":false,"visible":true,"__type":"control"},{"uid":"6X8tIItveg","x":22.208884324046732,"y":-23.13968416998331,"lock":false,"visible":true,"__type":"control"},{"uid":"2aValKgMC9","x":12.43548594171267,"y":-9.17768648093465,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"nIzcowuTds"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":91,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":255},"name":"Path","uid":"tSGLDl7xJs","lock":false,"visible":true}]}
+35, -58.5, 34.841, -39.737, 31.577, -24.816, 27.613, -12.459
+#PATH.JERRYIO-DATA {"appVersion":"0.6.0","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":14,"robotHeight":18,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"tfJbzciBIa","x":35,"y":-58.5,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"dpEvYuCfOU","x":34.84077585692724,"y":-39.73676282825668,"lock":false,"visible":true,"__type":"control"},{"uid":"4UdhVcNG3i","x":31.57678454270761,"y":-24.81565967753835,"lock":false,"visible":true,"__type":"control"},{"uid":"Q7M1zUUx2y","x":27.61336651829806,"y":-12.459121130849784,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"t1rejaLKv8"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":100,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":1,"label":"1"},"step":0.001,"from":0,"to":0.1},"maxDecelerationRate":255},"name":"Path","uid":"vCWjJJHTcJ","lock":false,"visible":true}]}

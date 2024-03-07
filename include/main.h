@@ -58,6 +58,7 @@ extern Intake intake;
 extern Wings vert_wings;
 // horizontal wings... (for autons)
 extern Wings horiz_wings;
+extern Hang hang;
 
 /**
  * You should add more #includes here
