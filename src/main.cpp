@@ -2,195 +2,207 @@
  * TODO: add back giant "info" comment (put it in main.h) abt all details for bot (controls, ports, etc!)
  * 
  * TODO: should i be using #pragma once everywhere?
- * 
- * TODO: set up README.md for this "repo"!
 */
 #include "main.h"
 
-// extern int currTab;
-// extern int currAuton;
+/**
+ * START CONSTS: (GENERAL)
+*/
 
 const int DRIVE_SPEED = 127;
 
-// port definitions
+/**
+ * END CONSTS: (GENERAL)
+*/
 
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
+
 
 /**
- * TODO: see if this nomenclature is correct
+ * START CONSTS: (PROS)
 */
-// // pros::Motor left_top_front_motor(-18);
-// pros::Motor left_top_back_motor(-18);
-// // pros::Motor left_top_back_motor(-10);
-// pros::Motor left_top_front_motor(-10);
-// pros::Motor left_bottom_front_motor(-9);
-// pros::Motor left_bottom_back_motor(-19);
+pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
+
+// drivetrain motor definitions
 pros::Motor left_front(-19);
 pros::Motor left_middle(-18);
 pros::Motor left_back(-20);
-
-// // pros::Motor right_top_front_motor(14);
-// pros::Motor right_top_back_motor(14);
-// // pros::Motor right_top_back_motor(12);
-// pros::Motor right_top_front_motor(12);
-// pros::Motor right_bottom_front_motor(13);
-// pros::Motor right_bottom_back_motor(11);
 
 pros::Motor right_front(11);
 pros::Motor right_middle(12);
 pros::Motor right_back(13);
 
+
+// drivetrain left/right motor group definitions
 pros::Motor_Group left_drive({
-	left_front, left_middle, left_back
+	left_front
+	, left_middle
+	, left_back
 });
 
 pros::Motor_Group right_drive({
-	right_front, right_middle, right_back
+	right_front
+	, right_middle
+	, right_back
 });
+
 
 pros::Imu inertial_sensor(1);
 
+/**
+ * END CONSTS: (PROS)
+*/
+
+
+
+/**
+ * START CONSTS: (LEMLIB)
+*/
+
 lemlib::Drivetrain drivetrain {
-    &left_drive, // left drivetrain motors
-    &right_drive, // right drivetrain motors
-    13.5, // track width
-    3.25, // wheel diameter
-    450, // wheel rpm
-	lemlib::Omniwheel::NEW_325_HALF // chase power
+    &left_drive 					// left drivetrain motors
+
+    , &right_drive 					// right drivetrain motors
+	
+    , 17							// (track) width (of le robor)
+
+    , 3.25							// wheel diameter
+
+    , 450 							// wheel rpm
+
+	, lemlib::Omniwheel::NEW_325_HALF 	// chase power (specific to wheel type).
+										// in this case, we are using the NEW (wheels NOT colored green)
+										// omniwheels!
 };
 
-// odometry struct
+
+// helps with odometry
 lemlib::OdomSensors sensors {
-    nullptr, // vertical tracking wheel 1
-    nullptr, // vertical tracking wheel 2
-    nullptr, // horizontal tracking wheel 1
-    nullptr, // we don't have a second tracking wheel, so we set it to nullptr
-    &inertial_sensor // inertial sensor
+    nullptr 			// vertical tracking wheel 1
+    , nullptr 			// vertical tracking wheel 2
+    , nullptr 			// horizontal tracking wheel 1
+    , nullptr 			// we don't have a second tracking wheel, so we set it to nullptr
+    , &inertial_sensor 	// inertial sensor
 };
 
-// kp, ki, kd, windup, smallerror, smallerrortimeout, largeerror, largeerrortimeout, slew
-
-// 20 kP, 5 kD -> NOT FULLY TUNED YET (i.e. gotten to step 5 where oscillation can no longer be stopped) 
-
-// 10, <5 -> NOT overshooting but oscillating
-// 9, no D -> undershooting
-
-// 10, 5 -> still overshooting
 
 lemlib::ControllerSettings linearController(
-	9 // kP
-	, 0 // kI
-	, 7 // kD
-	, 0 // antiWindup
-	, 1
-	, 100
-	, 3
-	, 500
-	, 0
+	9 		// kP (proportional constant for PID)
+
+	, 0 	// kI (integral constant for PID)
+
+	, 7 	// kD (derivative constant for PID)
+
+	, 0 	// anti-windup term (prevents large overshoots/oscillations)
+
+	, 1		// small error (the error at which the PID
+			// will switch to a slower control loop)
+
+	, 100	// small error timeout (how long the PID will wait before
+			// switching to a slower control loop)
+
+	, 3		// large error (the error at which the PID)
+			// will switch to a faster control loop
+
+	, 500	// large error timeout (how long the PID will wait before
+			// switching to a faster control loop)
+
+	, 0		// slew rate (the maximum acceleration of the PID)
 );
 
-// 2, 8
-// 3, 16 -> NOT FULLY TUNED YET (i.e. gotten to step 5 where oscillation can no longer be stopped)
 
 lemlib::ControllerSettings angularController(
-	3 // kP
-	, 0 // kI
-	, 16 // kD
-	, 0 // antiWindup
-	, 1
-	, 100
-	, 3
-	, 500
-	, 0
+	3 		// kP (proportional constant for PID)
+
+	, 0 	// kI (integral constant for PID)
+	
+	, 16 	// kD (derivative constant for PID)
+	
+	, 0 	// anti-windup term (prevents large overshoots/oscillations)
+	
+	, 1		// small error (the error at which the PID
+			// will switch to a slower control loop)
+	
+	, 100	// small error timeout (how long the PID will wait before
+			// switching to a slower control loop)
+	
+	, 3		// large error (the error at which the PID)// slew rate (the maximum acceleration of the PID)
+			// will switch to a faster control loop
+
+	, 500	// large error timeout (how long the PID will wait before
+			// switching to a faster control loop)
+	
+	, 0		// slew rate (the maximum acceleration of the PID)
 );
 
-lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors);
 
-// Hang hang = Hang('H');
-Hang hang = Hang(10);
+lemlib::Chassis chassis(
+	drivetrain
+	, linearController
+	, angularController
+	, sensors
+);
 
 /**
- * TODO: set intake ports
- * INTAKE: uses motors
+ * END CONSTS: (LEMLIB)
 */
+
+
+
+/**
+ * START CONSTS: (COMPONENTS)
+*/
+
+Hang hang = Hang(
+	10 							// port for hang motor
+	, 'H' 						// port for hang ratchet piston
+);
+
 Intake intake = Intake(
-	-17, pros::E_MOTOR_BRAKE_HOLD
+	-17							// port for intake motor
+
+	, pros::E_MOTOR_BRAKE_HOLD	// brake mode for intake motor
 );
 
-// Wings vert_wings = Wings(
-// 	'A', 'B'
-// );
 Wings vert_wings = Wings({
-	'B'
+	'B'							// port for vertical wings' pistons
+});
+
+Wings horiz_wings = Wings({
+	'A'							// port for horizontal wings' pistons
 });
 
 /**
- * TODO: set ports!
+ * END CONSTS: (COMPONENTS)
 */
-Wings horiz_wings = Wings({
-	'F'
-});
-
-// Selector s = Selector();
-
-// Selector selector = Selector();
-
-// Slapper slapper = Slapper(
-// 	0, 
-// 	{pros::Motor(0)}, 
-// 	10, 
-// 	0, 
-// 	2
-// );
-
-// AutonSelector as = AutonSelector(360, 
-// 	// far autons
-// 	{
-// 		Auton("far 1", []() { printf("far 1"); }),
-// 		Auton("far 2", []() { printf("far 2"); }),
-// 		Auton("far 3", []() { printf("far 3"); })
-// 	},
-// 	// near autons
-// 	{
-// 		Auton("near 1", []() { printf("near 1"); }),
-// 		Auton("near 2", []() { printf("near 2"); }),
-// 		Auton("near 3", []() { printf("near 3"); })
-// 	},
-// 	// skills autons
-// 	{
-// 		Auton("skills 1", []() { printf("skills 1"); }),
-// 		Auton("skills 2", []() { printf("skills 2"); }),
-// 		Auton("skills 3", []() { printf("skills 3"); })
-// 	}
-// );
 
 /**
  * TESTING: (1)
 */
 void screenTaskFunc(void* chassis) {
+	// we need to pass in chassis as a void* type, and then
+	// cast void* to lemlib::Chassis* within the function because 
+	// pros is kinda dumb ngl
 	lemlib::Chassis *myChassis = (lemlib::Chassis *)chassis;
 
 	while (true) {
-		// print robot location to the brain screen
-
-		pros::lcd::print(0, "X: %f", myChassis->getPose().x); // x
-		pros::lcd::print(1, "Y: %f", myChassis->getPose().y); // y
-		pros::lcd::print(2, "Theta: %f", myChassis->getPose().theta); // heading
+		// print robot location & heading to the brain screen
+		pros::lcd::print(4, "X: %f", myChassis->getPose().x); // x
+		pros::lcd::print(5, "Y: %f", myChassis->getPose().y); // y
+		pros::lcd::print(6, "Theta: %f", myChassis->getPose().theta); // heading
+		
 		// log position telemetry
-		lemlib::telemetrySink()->info("Chassis pose: {}", myChassis->getPose());
+		lemlib::telemetrySink()->info(
+			"Chassis pose: {}"
+			, myChassis->getPose()
+		);
 		
 		// delay to save resources
 		pros::delay(50);
 	}
 }
 
-// Test test = Test();
-
-/**
- * TESTING: (1)
-*/
-// pros::Task screenTask(screenTaskFunc, &chassis);
+pros::Task screenTask(screenTaskFunc, &chassis);
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -201,69 +213,48 @@ void screenTaskFunc(void* chassis) {
 void initialize() {
 	printf("[main.py] initialize(): initializing robot...\n");
 
-	// pros::lcd::initialize();
+	printf("[main.py] initialize(): fetching autons to set for auton selector...\n");
+	std::map<std::string, std::function<void()>> far_side_autons;
+	std::map<std::string, std::function<void()>> near_side_autons;
+	std::map<std::string, std::function<void()>> skills_autons;
 
-	// controller.set_text(0, 0, "HELP");
+	// far_side_autons["far auton 1"] = [&]() { printf("running far auton 1"); };
+	// far_side_autons["far auton 2"] = [&]() { printf("running far auton 2"); };
+	// far_side_autons["far auton 3"] = [&]() { printf("running far auton 3"); };
 
-	chassis.calibrate();
-	// chassis.setPose(0, 0, 0);
+	// near_side_autons["near auton 1"] = [&]() { printf("running near auton 1"); };
+	// near_side_autons["near auton 2"] = [&]() { printf("running near auton 2"); };
+	// near_side_autons["near auton 3"] = [&]() { printf("running near auton 3"); };
 
-	// pros::Task screenTask(screenTaskFunc, &chassis);
+	// skills_autons["skills auton 1"] = [&]() { printf("running skills auton 1"); };
+	// skills_autons["skills auton 2"] = [&]() { printf("running skills auton 2"); };
+	// skills_autons["skills auton 3"] = [&]() { printf("running skills auton 3"); };
 
-	/**
-	 * TESTING: (1)
-	*/
-	// pros::Task screenTask([&]() {
-    //     while (true) {
-    //         // print robot location to the brain screen
+	far_side_autons["Far Side Rush"] = far_side_rush;
 
-    //         pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
-    //         pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
-    //         pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-    //         // log position telemetry
-    //         lemlib::telemetrySink()->info("Chassis pose: {}", chassis.getPose());
-    //         // delay to save resources
-    //         pros::delay(50);
-    //     }
-    // });
+	near_side_autons["Near Side Rush"] = near_side_rush;
 
-	// Auton far_auton_1("far 1", []() { printf("far 1"); });
-	// Auton far_auton_2("far 1", []() { printf("far 2"); });
-	// Auton far_auton_3("far 1", []() { printf("far 3"); });
+	skills_autons["Push Back"] = [&]() {};
 
-	// Auton near_auton_1("far 1", []() { printf("near 1"); });
-	// Auton near_auton_2("far 1", []() { printf("near 2"); });
-	// Auton near_auton_3("far 1", []() { printf("near 3"); });
+	printf("[main.py] initialize(): initializing pros LCD (LLEMU)...\n");
+	pros::lcd::initialize();
 
-	// Auton skills_auton_1("far 1", []() { printf("skills 1"); });
-	// Auton skills_auton_2("far 1", []() { printf("skills 2"); });
-	// Auton skills_auton_3("far 1", []() { printf("skills 3"); });
-
-	// printf("[main.py] initialize(): calling as::init()\n\n");
-	// // initializes auton selector
-	// as::init(
-	// 	// far autons
-	// 	{
-	// 		far_auton_1,
-	// 		far_auton_2,
-	// 		far_auton_3
-	// 	},
-	// 	// near autons
-	// 	{
-	// 		near_auton_1,
-	// 		near_auton_2,
-	// 		near_auton_3
-	// 	},
-	// 	// skills autons
-	// 	{
-	// 		skills_auton_1,
-	// 		skills_auton_2,
-	// 		skills_auton_3
-	// 	},
-	// 	360,
-	// 	0,
-	// 	0
+	printf("[main.py] initialize(): initializing auton selector...\n");
+	// LLEMUSelector::init(
+	// 	far_side_autons
+	// 	, near_side_autons
+	// 	, skills_autons
 	// );
+	
+	// starts screen selecting!
+	screenTask.resume();
+
+	printf("[main.py] initialize(): calibrating chassis position...\n");
+	
+	/**
+	 * TODO: sometimes it just flat out doesn't work ;-;
+	*/
+	chassis.calibrate();
 
 	printf("[main.py] initialize(): finished initializing!\n\n");
 }
@@ -285,13 +276,17 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
+	printf("[main.py] competition_initialize(): starting pre-auton initialization...\n");
+
+	printf("[main.py] competition_initialize(): changing drivetrain motors' brake modes...\n");
 	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
 
-	// screenTask.suspend();
+	printf("[main.py] competition_initialize(): enabling auton selector...\n");
+	LLEMUSelector::rebind();
 
-	// selector::init();
-}
+	printf("[main.py] competition_initialize(): finished pre-auton initialization!\n\n");
+};
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -311,26 +306,19 @@ void autonomous() {
 	 * NOTE: make sure this doesn't break anything!
 	*/
 
-	printf("[main.py] autonomous(): starting autons!\n");
+	printf("[main.py] autonomous(): starting autonomous period...\n");
 
-	near_side_rush();
+	printf("[main.py] autonomous(): releasing intake...\n");
 
-	// pros::delay(5000);
+	hang.release_intake();
 
-	// switch (selector::auton) {
-	// 	// far side
-	// 	case RED_AUTON_RUSH:
-	// 		printf("running far side rush...");
-	// 		// far_side_rush();
-	// 		break;
-	// 	case BLUE_AUTON_RUSH:
-	// 		printf("running near side rush...");
-	// 		// near_side_rush();
-	// 		break;
-	// 	case SKILLS:
-	// 		printf("running skills...");
-	// 		// prog_skills_max();
-	// 		break;
+	printf("[main.py] autonomous(): calling selected auton!\n");
+
+	// LLEMUSelector::call();
+
+	// near_side_rush();
+
+	far_side_rush();
 
 	printf("[main.py] autonomous(): auton fully finished! (unless auton period ended bfore then ;-;)\n\n");
 }
@@ -354,31 +342,61 @@ void opcontrol() {
 	 * 
 	 * NOTE: make sure this doesn't break anything!
 	*/
-	// screenTask.resume();
 
+	printf("[main.py] opcontrol(): starting driver control period...");
+
+	/**
+	 * clear auton selector screen displaying stuff
+	*/
+
+	// removes artifact text from the auton selector
+	pros::lcd::clear();
+
+	printf("[main.py] opcontrol(): disabling auton selector...\n");
+
+	// unbinds all LLEMU buttons
+	pros::lcd::register_btn0_cb([]() {});
+	pros::lcd::register_btn1_cb([]() {});
+	pros::lcd::register_btn2_cb([]() {});
+
+	// sets motor modes to coast for driver control (bc set to 
+	// motor brake hold in auton)
 	left_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 	right_drive.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 
 	while (true) {
+		// tank drive (scales by max speed DRIVE_SPEED)
 		left_drive.move((controller.get_analog(ANALOG_LEFT_Y) / 127.0) * DRIVE_SPEED);
 		right_drive.move((controller.get_analog(ANALOG_RIGHT_Y) / 127.0) * DRIVE_SPEED);
-		// chassis.tank((controller.get_analog(ANALOG_LEFT_Y)/127)*DRIVE_SPEED, (controller.get_analog(ANALOG_RIGHT_Y)/127)*DRIVE_SPEED, 1);
+
+
 
 		/**
-		 * using motors:
+		 * FETCHING CONTROLS:
 		*/
-		bool L1_new_press = controller.get_digital_new_press(DIGITAL_L1);
-		bool L2_new_press = controller.get_digital_new_press(DIGITAL_L2);
-		bool R1_pressed = controller.get_digital(DIGITAL_R1);
-		bool R2_pressed = controller.get_digital(DIGITAL_R2);
 
-		bool X_pressed = controller.get_digital(DIGITAL_X);
+		// horizontal wings (toggle)
+		bool L1_new_press = controller.get_digital_new_press(DIGITAL_L1);
+		// vertical wings (toggle)
+		bool LEFT_new_press = controller.get_digital_new_press(DIGITAL_LEFT);
+		// ratchet; ONE-WAY toggle (disabled -> enabled)
+		bool UP_new_press = controller.get_digital_new_press(DIGITAL_UP);
+
+
+		// open hang (hold)
+		bool L2_pressed = controller.get_digital(DIGITAL_L2);
+		// close hang (hold)
 		bool B_pressed = controller.get_digital(DIGITAL_B);
+
+		// intake (hold)
+		bool R1_pressed = controller.get_digital(DIGITAL_R1);
+		// outtake (hold)
+		bool R2_pressed = controller.get_digital(DIGITAL_R2);
 		
 		/**
 		 * HANG:
 		*/
-		if (X_pressed) {
+		if (L2_pressed) {
 			// toggles hang (if hang open, it will close. if hang close, it will open)
 			hang.open_hang();
 		} else if (B_pressed) {
@@ -386,6 +404,11 @@ void opcontrol() {
 		} else {
 			hang.stop_hang();
 		} 
+
+		// ONLY MEANT TO BE USED ONE TIME!!!
+		if (UP_new_press) {
+			hang.ratchet();
+		}
 
 		/**
 		 * INTAKE: using motors
@@ -413,7 +436,10 @@ void opcontrol() {
 		// } else {
 		// 	vert_wings.close();
 		// }
-		if (L2_new_press) {
+		// if (L2_new_press) {
+		// 	vert_wings.toggle();
+		// }
+		if (LEFT_new_press) {
 			vert_wings.toggle();
 		}
 

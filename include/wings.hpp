@@ -4,15 +4,16 @@
 
 class Wings {
     public:
-        // pros::ADIDigitalOut left_wing_piston;
-        // pros::ADIDigitalOut right_wing_piston;
-        
         std::vector<pros::ADIDigitalOut> wing_pistons;
 
         bool wings_enabled = false;
 
-        // Wings(std::uint8_t left_wing_piston_port, std::uint8_t right_wing_piston_port);
-
+        /**
+         * initializes the wing subsystems
+         * 
+         * NOTE that solenoid ports (`pros::ADIDigitalOut` instances) are stored in a
+         * VECTOR (`Wings::wing_pistons`)
+        */
         Wings(std::vector<std::uint8_t> wing_pistons_ports);
 
         /**

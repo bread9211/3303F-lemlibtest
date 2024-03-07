@@ -2,12 +2,12 @@
 
 Slapper::Slapper(
     std::uint8_t rotPort, 
-    std::vector<pros::Motor> slapperMotorGroup, 
+    std::vector<pros::Motor> slapperMotorGroup,
     float K_p, 
     float K_i, 
     float K_d
 ) : rotSensor(rotPort), 
-    slapperMotors(slapperMotorGroup), 
+    slapperMotors(slapperMotorGroup),
     pid(K_p, K_i, K_d) 
 {
     // 10, 0, 2

@@ -6,16 +6,15 @@ ASSET(Near_Rush_2_SizeAdjust_txt);
 ASSET(Near_Rush_3_SizeAdjust_txt);
 
 // new far autons
-ASSET(Far_Rush_1);
-ASSET(Far_Rush_2);
-ASSET(Far_Rush_3);
-ASSET(Far_Rush_4);
-ASSET(Far_Rush_5);
-ASSET(Far_Rush_6);
+ASSET(Far_Rush_1_txt);
+ASSET(Far_Rush_2_txt);
+ASSET(Far_Rush_3_txt);
+ASSET(Far_Rush_4_txt);
+ASSET(Far_Rush_5_txt);
+ASSET(Far_Rush_6_txt);
 
 // test autons
 ASSET(Test_txt);
-
 
 /**
  * For those not in the know, PID stands for proportional, integral, derivative control. I’ll break it down:
@@ -26,9 +25,6 @@ ASSET(Test_txt);
  * https://www.youtube.com/watch?v=qKy98Cbcltw
 */
 void pidLinearTest() {
-    /**
-     * tuning move
-    */
     chassis.setPose(0, 0, 0);
     chassis.moveToPoint(0, 15, 15000, true, 127.0, false);
 
@@ -45,6 +41,12 @@ void pidAngularTest() {
     chassis.turnTo(10, 0, 15000, true, 127.0, false);
 }
 
+void autonTest() {
+    chassis.setPose(-12, -36, 0);
+    chassis.follow(Test_txt, 15, 5000, true, false);
+    chassis.waitUntilDone();
+}
+
 /**
  * TODO: verify lookahead distances!
  * TODO: does "heading" parameter matter for end control points?
@@ -55,13 +57,17 @@ void pidAngularTest() {
  * - probably needs to be more right
  * 
  * TIME: "about" 14.2 seconds
+ * 
+ * TODO: see lowest timeouts we can set for `chassis.follow()` and `chassis.turnTo()` calls
+ * TODO: find a good lookahead distance for `chassis.follow()` calls
+ * TODO: see least possible buffer delay you can set for intaking triballs / opening and closing wings
 */
 
 // currently path 1 is NOT reaching the triball; missing by a GOOD 30% of a tile
 void near_side_rush() {
     // initially sets position/heading to that at the beginning of the first path file!
     chassis.setPose(
-        -36
+        -35
         , -58
         , 0
     );
@@ -75,7 +81,7 @@ void near_side_rush() {
      * GOAL: yeets alliance triball
     */
     // starts intake running
-    printf("[near_side_rush]: starting intake");
+    printf("[near_side_rush]: starting intake\n");
     intake.intake();
 
     // opens wings to yeet triball
@@ -211,7 +217,7 @@ void near_side_rush() {
 
 
     /**
-     * GOAL: rotate towards next intended position
+     * GOAL: rotate towards next intended position (with FRONT of robot, since sunny removed one of the vertical wings ;-;)
     */
     /**
      * TODO: could we just do "moveToPose" so it would turn and then go towards the point, or would it do the funny and swing turn while driving?
@@ -220,7 +226,7 @@ void near_side_rush() {
         -44   // x
         , -59 // y
         , 1500 // timeout
-        , true // moving FORWARD
+        , false // moving FORWARD
         , 127.0 // max speed
         , false // asynchronous
     );
@@ -238,7 +244,7 @@ void near_side_rush() {
         -44     // x
         , -59   // y
         , 1500  // timeout
-        , true  // moving forward
+        , false  // moving forward
         , 127.0 // max speed
         , false // async
     );
@@ -253,6 +259,16 @@ void near_side_rush() {
     /**
      * GOAL: turns robot towards elevation bar, (hopefully) getting triball out of matchload bar
     */
+    chassis.turnTo(
+        0
+        , -59
+        , 1000
+        , false
+        , 127.0
+        , false
+    );
+
+    // makes bot face with like... front of robor?
     chassis.turnTo(
         0
         , -59
@@ -284,6 +300,8 @@ void near_side_rush() {
     intake.brake();
 
     // aaand now it should be touching the matchload bar!
+    printf("[near_side_rush]: finished near side rush!\n");
+    printf("----------------------------------------------\n\n");
 }
 
 void far_side_rush() {
@@ -291,7 +309,7 @@ void far_side_rush() {
     intake.intake();
     horiz_wings.open();
     pros::delay(350);
-    chassis.follow(Far_Rush_1, 25, 5000);
+    chassis.follow(Far_Rush_1_txt, 25, 5000);
     pros::delay(100);
     horiz_wings.close();
     chassis.waitUntilDone();
@@ -301,7 +319,7 @@ void far_side_rush() {
     chassis.turnTo(65, 65, 1000);
     chassis.waitUntilDone();
     horiz_wings.open();
-    chassis.follow(Far_Rush_2, 25, 2000);
+    chassis.follow(Far_Rush_2_txt, 25, 2000);
     pros::delay(100);
     intake.outake();
     chassis.waitUntilDone();
@@ -311,14 +329,14 @@ void far_side_rush() {
     intake.brake();
     chassis.turnTo(0, -65, 500);    
     chassis.waitUntilDone();
-    chassis.follow(Far_Rush_3, 25, 3500);
+    chassis.follow(Far_Rush_3_txt, 25, 3500);
     pros::delay(500);
     intake.intake();
     chassis.waitUntilDone();
 
     pros::delay(350); // checkpoint 3
 
-    chassis.follow(Far_Rush_4, 25, 5000, false);
+    chassis.follow(Far_Rush_4_txt, 25, 5000, false);
     chassis.waitUntilDone();
     intake.outake();
 
@@ -332,7 +350,7 @@ void far_side_rush() {
 
     pros::delay(350); // checkpoint 5
 
-    chassis.follow(Far_Rush_5, 30, 5000, false);
+    chassis.follow(Far_Rush_5_txt, 30, 5000, false);
     pros::delay(2000);
     vert_wings.open();
     pros::delay(750);
@@ -341,25 +359,19 @@ void far_side_rush() {
 
     pros::delay(10); // checkpoint 6
 
-    chassis.follow(Far_Rush_6, 30, 5000);
+    chassis.follow(Far_Rush_6_txt, 30, 5000);
     chassis.waitUntilDone();
 
     // checkpoint 7 (final)
 }
 
-void autonTest() {
-    chassis.setPose(-12, -36, 0);
-    chassis.follow(Test_txt, 15, 5000, true, false);
-    chassis.waitUntilDone();
-}
-
-void prog_skills_max() {
-    chassis.setPose(
-        -47.605, 
-        -55.916,
-        0
-    );
-}
+// void prog_skills_max() {
+//     chassis.setPose(
+//         -47.605, 
+//         -55.916,
+//         0
+//     );
+// }
 
 /**
  * START: "same" setup as with near-side autons, except mirrored so triball is on right side of robor, w/ horizontal wings

@@ -10,6 +10,8 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * 
+ * TODO: colorized terminal output! (see if vex brain's terminal supports it)
  */
 
 #ifndef _PROS_MAIN_H_
@@ -35,6 +37,8 @@
 #define PROS_USE_LITERALS
 
 #include <string>
+#include <map>
+#include <functional>
 
 #include "api.h"
 #include "lemlib/api.hpp"
@@ -46,7 +50,7 @@
 #include "wings.hpp"
 #include "slapper.hpp"
 
-// #include "selection.hpp"
+#include "selection.hpp"
 
 extern lemlib::Chassis chassis;
 extern Intake intake;
