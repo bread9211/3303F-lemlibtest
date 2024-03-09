@@ -316,9 +316,9 @@ void autonomous() {
 
 	// LLEMUSelector::call();
 
-	// near_side_rush();
+	near_side_rush();
 
-	far_side_rush();
+	// far_side_rush();
 
 	printf("[main.py] autonomous(): auton fully finished! (unless auton period ended bfore then ;-;)\n\n");
 }
