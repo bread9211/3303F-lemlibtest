@@ -12,6 +12,7 @@ ASSET(Far_Rush_3_txt);
 ASSET(Far_Rush_4_txt);
 ASSET(Far_Rush_5_txt);
 ASSET(Far_Rush_6_txt);
+ASSET(Far_Rush_7_txt);
 
 // test autons
 ASSET(Test_txt);
@@ -88,13 +89,13 @@ void near_side_rush() {
     printf("[near_side_rush]: opening wings to yeet triballs\n");
     horiz_wings.open();
     // delay for it to like... fully open
-    pros::delay(500);
+    pros::delay(250);
     
     // closes wings
     printf("[near_side_rush]: close wings cuz otherwise they're gonna get ripped right off\n");
     horiz_wings.close();
     // delay for it to like... fully close
-    pros::delay(500);
+    pros::delay(50);
 
     
 
@@ -111,7 +112,7 @@ void near_side_rush() {
 
         , 15                       /* lookahead distance */
 
-        , 1200                     /* timeout */
+        , 1150                     /* timeout */
 
         , true                     /* we're moving forwards along the path! 
                                       (i.e. the front of the robot is moving towards the finish point) */
@@ -144,7 +145,7 @@ void near_side_rush() {
     chassis.follow(
         Near_Rush_2_SizeAdjust_txt // path
         , 15 // lookahead
-        , 1500 // timeout
+        , 1150 // timeout
         , false
         , false
     );
@@ -159,7 +160,7 @@ void near_side_rush() {
         , -60   // y
         , 1000  // how long it can spend turning (1000 ms)
         , true  // turns to face triball with FRONT of robot
-        , 127.0 // max speed 127
+        , 80.0 // max speed 127
         , false // will NOT run asynchronously (blocking function)
     );
 
@@ -217,7 +218,7 @@ void near_side_rush() {
 
 
     /**
-     * GOAL: rotate towards next intended position (with FRONT of robot, since sunny removed one of the vertical wings ;-;)
+     * GOAL: rotate towards next intended position (with FRONT of robot, since sunny removed one of the vertical wings ;-;) (womp womp)
     */
     /**
      * TODO: could we just do "moveToPose" so it would turn and then go towards the point, or would it do the funny and swing turn while driving?
@@ -241,32 +242,27 @@ void near_side_rush() {
      * GOAL: go towards next intended position
     */
     chassis.moveToPoint(
-        -44     // x
-        , -59   // y
-        , 1500  // timeout
+        -48.624     // x
+        , -53.958   // y
+        , 500  // timeout
         , false  // moving forward
         , 127.0 // max speed
         , false // async
+    );
+
+    chassis.turnTo(
+        0
+        , 0
+        , 1000
+        , false
+        , 100.0
+        , false
     );
 
     // closes vertical wings
     vert_wings.close();
     // waits a BIIIT longer for wings to close 
     pros::delay(100);
-
-
-
-    /**
-     * GOAL: turns robot towards elevation bar, (hopefully) getting triball out of matchload bar
-    */
-    chassis.turnTo(
-        0
-        , -59
-        , 1000
-        , false
-        , 127.0
-        , false
-    );
 
     // makes bot face with like... front of robor?
     chassis.turnTo(
@@ -288,11 +284,11 @@ void near_side_rush() {
 
     // shlams into all le triballs, moving towards elevation bar but NOT crossing it!
     chassis.moveToPoint(
-        -10    // x
+        -9    // x
         , -60  // y
         , 1500 // timeout
         , true // moving FORWARDS!
-        , 127.0 // max speed
+        , 100.0 // max speed
         , false // NOT Async
     );
 
@@ -305,64 +301,91 @@ void near_side_rush() {
 }
 
 void far_side_rush() {
-    chassis.setPose(35, -57.5, 0);
+    // 30
+    chassis.setPose(
+        35
+        , -58.5
+        , 0
+    );
+
     intake.intake();
+
+    // opens wings to yeet triball
     horiz_wings.open();
-    pros::delay(350);
-    chassis.follow(Far_Rush_1_txt, 25, 5000);
-    pros::delay(100);
+    // delay for it to like... fully open
+    pros::delay(250);
+    
+    // closes wings
     horiz_wings.close();
+    // delay for it to like... fully close
+    pros::delay(50);
+
+    chassis.follow(Far_Rush_1_txt, 35, 1100);
     chassis.waitUntilDone();
 
-    pros::delay(350); // checkpoint 1
+    pros::delay(150);
 
-    chassis.turnTo(65, 65, 1000);
+    chassis.follow(Far_Rush_2_txt, 35, 1100);
     chassis.waitUntilDone();
-    horiz_wings.open();
-    chassis.follow(Far_Rush_2_txt, 25, 2000);
-    pros::delay(100);
+
+    chassis.turnTo(60, -35, 1000);
+    chassis.waitUntilDone();
+
+    pros::delay(50);
+
     intake.outake();
-    chassis.waitUntilDone();
-
-    pros::delay(10); // checkpoint 2
-
-    intake.brake();
-    chassis.turnTo(0, -65, 500);    
-    chassis.waitUntilDone();
-    chassis.follow(Far_Rush_3_txt, 25, 3500);
+    
     pros::delay(500);
+
     intake.intake();
+    chassis.turnTo(0, -60, 1000);
     chassis.waitUntilDone();
 
-    pros::delay(350); // checkpoint 3
-
-    chassis.follow(Far_Rush_4_txt, 25, 5000, false);
+    chassis.moveToPoint(10, -60, 1000);
     chassis.waitUntilDone();
-    intake.outake();
+    pros::delay(250);
 
-    pros::delay(750); // checkpoint 4
-
-    chassis.turnTo(0, -60, 1200);
-    chassis.waitUntilDone();
-    intake.intake();
-    chassis.moveToPoint(11.505, -58.975, 5000);
-    chassis.waitUntilDone();
-
-    pros::delay(350); // checkpoint 5
-
-    chassis.follow(Far_Rush_5_txt, 30, 5000, false);
-    pros::delay(2000);
+    chassis.follow(Far_Rush_3_txt, 20, 2500, false);
+    chassis.waitUntil(30.0); // waiting until 30in traveled (around start of matchload bar)
     vert_wings.open();
-    pros::delay(750);
+    chassis.waitUntil(48.0); // waiting until 48in traveled (around end of matchload bar)
     vert_wings.close();
     chassis.waitUntilDone();
 
-    pros::delay(10); // checkpoint 6
-
-    chassis.follow(Far_Rush_6_txt, 30, 5000);
+    chassis.moveToPoint(60, -39, 500);
+    chassis.waitUntilDone();
+    chassis.turnTo(60, 35, 1000);
+    chassis.waitUntilDone();
+    pros::delay(50);
+    intake.outake();
+    chassis.moveToPoint(60, 35, 750);
     chassis.waitUntilDone();
 
-    // checkpoint 7 (final)
+    chassis.moveToPose(60, -39, -90, 500);
+    chassis.waitUntilDone();
+    intake.intake();
+    chassis.follow(Far_Rush_4_txt, 35, 1200);
+    chassis.waitUntilDone();
+    pros::delay(100);
+
+    intake.brake();
+    chassis.follow(Far_Rush_5_txt, 35, 1200);
+    chassis.waitUntilDone();
+
+    chassis.moveToPose(38.105, -8.729, -90, 750);
+    chassis.waitUntilDone();
+    chassis.follow(Far_Rush_6_txt, 35,  500);
+    pros::delay(50);
+    intake.intake();
+    chassis.waitUntilDone();
+    chassis.moveToPose(13.858, -4.066, 90, 750);
+    chassis.waitUntilDone();
+
+    chassis.follow(Far_Rush_7_txt, 35, 1000);
+    intake.brake();
+    chassis.waitUntilDone();
+    chassis.moveToPoint(22, -12, 1000, false);
+    chassis.waitUntilDone();
 }
 
 // void prog_skills_max() {

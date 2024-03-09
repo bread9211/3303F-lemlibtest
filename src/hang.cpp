@@ -18,8 +18,8 @@ void Hang::release_intake() {
      * TODO: need to wait before calling second function?
      * TODO: verify that degree target is correct
     */
-    hang_motor.move_relative(-10, 127);
-    hang_motor.move_relative(10, 127);
+    hang_motor.move_relative(-15, 127);
+    hang_motor.move_relative(30, 127);
 };
 
 void Hang::open_hang() {
