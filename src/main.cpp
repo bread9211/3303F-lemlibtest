@@ -315,7 +315,7 @@ void autonomous() {
 	printf("[main.py] autonomous(): calling selected auton!\n");
 
 	// LLEMUSelector::call();
-	
+
 	near_side_rush();
 
 	// far_side_rush();

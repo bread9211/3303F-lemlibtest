@@ -1,6 +1,6 @@
 # Overview (components)
 ### Motors
-The bot uses motors for two components: the drivetrain and the hang
+The bot uses motors for three components: the drivetrain, intake, and the hang
 
 **Drivetrain:**
 - 66W (6 motors * 11W)
